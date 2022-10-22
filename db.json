@@ -1,0 +1,10 @@
+{
+  "member": [
+    {
+      "email": "myemail",
+      "nickname": "mynickname",
+      "password": "mypassword",
+      "id": "1"
+    }
+  ]
+}
