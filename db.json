@@ -1,10 +1,10 @@
 {
   "member": [
     {
-      "email": "myemail",
-      "nickname": "mynickname",
-      "password": "mypassword",
-      "id": "1"
+      "email": "",
+      "nickname": "",
+      "password": "",
+      "id": ""
     }
   ]
 }

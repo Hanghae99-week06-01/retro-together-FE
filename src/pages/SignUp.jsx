@@ -13,12 +13,12 @@ const SignUp = () => {
     password: '',
   });
 
-  const onChange = (e) => {
+  const onChangeSignUp = (e) => {
     const { name, value } = e.target;
     setMember({ ...member, [name]: value });
   };
 
-  const onClick = () => {
+  const onClickSignUp = () => {
     if (
       member.email.trim() === '' ||
       member.nickname.trim() === '' ||
@@ -36,6 +36,10 @@ const SignUp = () => {
     setMember({ email: '', nickname: '', password: '' });
   };
 
+  const onKeyPress = (e) => {
+    if (e.key === 'Enter') onClickSignUp();
+  };
+
   return (
     <Modal>
       <label>이메일</label>
@@ -43,7 +47,8 @@ const SignUp = () => {
         type="text"
         name="email"
         value={member.email}
-        onChange={onChange}
+        onChange={onChangeSignUp}
+        onKeyPress={onKeyPress}
       />
       <label>닉네임</label>
       <input
@@ -51,23 +56,19 @@ const SignUp = () => {
         name="nickname"
         value={member.nickname}
         maxLength={8}
-        onChange={onChange}
+        onChange={onChangeSignUp}
+        onKeyPress={onKeyPress}
       />
       <label>비밀번호</label>
       <input
         type="text"
         name="password"
         value={member.password}
-        onChange={onChange}
+        minLength={6}
+        onChange={onChangeSignUp}
+        onKeyPress={onKeyPress}
       />
-      {/* <label>비밀번호 확인</label>
-      <input
-        type="text"
-        name="password"
-        value={member.password}
-        onChange={onChange}
-      /> */}
-      <button onClick={onClick}>회원가입</button>
+      <button onClick={onClickSignUp}>회원가입</button>
       <label>계정이 이미 있으신가요?</label>
       <label
         onClick={() => {
