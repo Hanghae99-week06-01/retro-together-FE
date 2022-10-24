@@ -2,35 +2,11 @@ import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import Modal from '../components/Modal';
-import { checkMemberThunk } from '../redux/modules/memberSlice';
+import { checkInMemberThunk } from '../redux/modules/memberSlice';
 
-// const [cookie, setCookie, removeCookie] = useCookies(['cook'])
-
-// const join = () => {
-
-//   const temp = {
-//     "emailId": "test@gmail.com",
-//     "password": "Qwer1234!"
-//   }
-
-//   const data = axios.post('https://spring.pyuri.dev/api/members/login', temp)
-//     .then(res => {
-//       console.log(res)
-//       console.log(res.request.getAllResponseHeaders())
-//       console.log(res.request.getResponseHeader('authorization'))
-//       setCookie('token', res.request.getResponseHeader('authorization'))
-//       setCookie('refreshToken', res.request.getResponseHeader('refresh_token'))
-//     }
-//   )
-
-//   console.log(token.refreshToken)
 //   axios.defaults.headers.post['refresh_token'] = token.refreshToken;
 //   axios.defaults.headers.post['authorization'] = token.token;
 //   const data = axios.post('https://spring.pyuri.dev/api/auth/members/logout')
-//   .then(res => {
-//     console.log(res);
-//   })
-// }
 
 const SignIn = () => {
   const navigate = useNavigate();
@@ -50,7 +26,7 @@ const SignIn = () => {
       alert('모든 항목을 입력해주세요.');
     }
     dispatch(
-      checkMemberThunk({
+      checkInMemberThunk({
         emailId: key.email,
         password: key.password,
       })

@@ -1,9 +1,8 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import axios from 'axios';
-import { Cookies } from 'react-cookie';
 
 const MEMBER = process.env.REACT_APP_MEMBER;
-const LOGIN = process.env.REACT_APP_LOGIN;
+const SIGNIN = process.env.REACT_APP_SIGNIN;
 
 export const addMemberThunk = createAsyncThunk(
   'ADD_MEMBER',
@@ -17,8 +16,8 @@ export const addMemberThunk = createAsyncThunk(
   }
 );
 
-export const checkMemberThunk = createAsyncThunk(
-  'CHECK_MEMBER',
+export const checkInMemberThunk = createAsyncThunk(
+  'CHECK_IN_MEMBER',
   async ({ emailId, password }, thunkAPI) => {
     try {
       const config = {
@@ -27,12 +26,13 @@ export const checkMemberThunk = createAsyncThunk(
         },
       };
       const { data } = await axios
-        .post(LOGIN, { emailId, password }, config)
+        .post(SIGNIN, { emailId, password }, config)
         .then((res) => {
           localStorage.setItem(
             'authorization',
             res.request.getResponseHeader('authorization')
           );
+          console.log(res);
           localStorage.setItem(
             'refresh_token',
             res.request.getResponseHeader('refresh_token')
@@ -67,14 +67,14 @@ const memberSlice = createSlice({
       state.isLoading = false;
       state.error = action.payload;
     },
-    [checkMemberThunk.fulfilled]: (state, action) => {
+    [checkInMemberThunk.fulfilled]: (state, action) => {
       state.isLoading = false;
       state.success = true;
     },
-    [checkMemberThunk.pending]: (state) => {
+    [checkInMemberThunk.pending]: (state) => {
       state.isLoading = true;
     },
-    [checkMemberThunk.rejected]: (state, action) => {
+    [checkInMemberThunk.rejected]: (state, action) => {
       state.isLoading = false;
       state.error = action.payload;
     },
