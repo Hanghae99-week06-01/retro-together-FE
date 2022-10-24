@@ -1,9 +1,64 @@
 {
   "posts": [
     {
-      "id": 1,
-      "title": "json-server",
-      "author": "typicode"
+      "category": "TIL",
+      "title": "test",
+      "twil_body": "test",
+      "recall_body": "test",
+      "image": "",
+      "url": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS22LFrYw7XNt96CNhW7RKPQoYGmw7Aes8deQ&usqp=CAU",
+      "tag": "#test",
+      "id": 1
+    },
+    {
+      "category": "TIL",
+      "title": "테스트 제목 2",
+      "twil_body": "ㅇㅇ",
+      "recall_body": "ㅇㅇ",
+      "image": "",
+      "url": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQtshuf_VB8GBYz-TBRN360De-SamOaNq1YN3Ei6S71YRDo99F0T-jq9KT6BcSmgqpgZVs&usqp=CAU",
+      "tag": "#Spring",
+      "id": 2
+    },
+    {
+      "category": "WIL",
+      "title": "테스트 제목 3",
+      "twil_body": "dd",
+      "recall_body": "dd",
+      "image": "",
+      "url": "https://p.kindpng.com/picc/s/171-1718046_javascript-programming-language-logo-hd-png-download.png",
+      "tag": "#Javascript",
+      "id": 3
+    },
+    {
+      "category": "WIL",
+      "title": "테스트 제목 4",
+      "twil_body": "dd",
+      "recall_body": "dd",
+      "image": "",
+      "url": "https://i.pinimg.com/originals/d9/7a/d7/d97ad7d1f3f486dc9309a87b0209538a.jpg",
+      "tag": "#Java",
+      "id": 4
+    },
+    {
+      "category": "TIL",
+      "title": "테스트 제목 5",
+      "twil_body": "dd",
+      "recall_body": "dd",
+      "image": "",
+      "url": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSmBS9TX8s0CVT9EC3ugaIIuEQxTxZTULdAqg&usqp=CAU",
+      "tag": "#Python",
+      "id": 5
+    },
+    {
+      "category": "TIL",
+      "title": "테스트 제목 6",
+      "twil_body": "dd",
+      "recall_body": "dd",
+      "image": "",
+      "url": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSjjpO5gNa9EE1TukzB5xqrLuRXj6KPZNCxS_gyLt9yVjKG_nhWvhASl4TPklYJIPkxonA&usqp=CAU",
+      "tag": "#Vue",
+      "id": 6
     }
   ],
   "comments": [

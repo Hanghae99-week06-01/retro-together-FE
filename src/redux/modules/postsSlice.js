@@ -36,14 +36,14 @@ const initialState = {
   error: null,
 };
 
-export const postSlice = createSlice({
+export const postsSlice = createSlice({
   name:"posts",
   initialState,
   reducers:{},
   extraReducers:{
     [__getPostThunk.fulfilled]: (state, action) => {
       state.isLoading = false;
-      state.post = action.payload;
+      state.error = action.payload;
       state.posts = [...action.payload]
     },
     [__getPostThunk.rejected]: (state, action) => {
@@ -69,3 +69,6 @@ export const postSlice = createSlice({
 
   }
 })
+
+export const {} = postsSlice.actions;
+export default postsSlice.reducer;

@@ -3,8 +3,11 @@ import Header from '../components/Header';
 import Layout from '../components/Layout';
 import Comment from './Comment';
 import styled from 'styled-components';
+import { useDispatch } from 'react-redux';
 
 const Post = () => {
+  const dispatch = useDispatch();
+
   return (
     <Layout>
       <Header />

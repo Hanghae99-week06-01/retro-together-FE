@@ -7,7 +7,7 @@ import './Banner.css';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 
-const Banner = () => {
+const Banner = ({ post }) => {
   const navigate = useNavigate();
 
   const settings = {
@@ -45,14 +45,14 @@ const Banner = () => {
     <StBanner>
       <Stoutline>
         <Slider {...settings}>
-          {exdata.map((item) => (
-            <Stcard key={item.key} onClick={() => navigate('/post')}>
+          {exdata.map((post) => (
+            <Stcard key={post.key} onClick={() => navigate('/post')}>
               <Stcardtop>
-                <Stcardimg src={item.thumbnailUrl} alt={item.title} />
+                <Stcardimg src={post.thumbnailUrl} alt={post.title} />
               </Stcardtop>
               <Stcardbottom>
-                <Sttitle>{item.title}</Sttitle>
-                <Sttag>{item.tag}</Sttag>
+                <Sttitle>{post.title}</Sttitle>
+                <Sttag>{post.tag}</Sttag>
                 <StLike>❤23</StLike>
               </Stcardbottom>
             </Stcard>

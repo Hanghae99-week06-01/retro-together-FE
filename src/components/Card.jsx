@@ -1,32 +1,28 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import { exdata } from '../data';
 import { useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 
-const Card = () => {
+const Card = ({ post }) => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
+  //;
+  // console.log(posts);
   return (
-    <div className="row row-cols-1 row-cols-md-5 g-4">
-      {exdata.map((item) => (
-        <Stbox className="col" key={item.id}>
-          <Stcard className="card" onClick={() => navigate('/post')}>
-            <Stcardimg
-              src={item.thumbnailUrl}
-              className="card-img-top"
-              alt={item.title}
-            />
-            <div className="card-body">
-              <h5 className="card-title">{item.title}</h5>
-              <div className="card-text">
-                <div>{item.tag}</div>
-                <div>❤23</div>
-              </div>
-            </div>
-          </Stcard>
-        </Stbox>
-      ))}
-    </div>
+    <Stbox className="col" key={post.id}>
+      <Stcard className="card" onClick={() => navigate('/post')}>
+        <Stcardimg src={post.url} className="card-img-top" alt={post.title} />
+        <div className="card-body">
+          <h5 className="card-title">{post.title}</h5>
+          <div className="card-text">
+            <div>{post.tag}</div>
+            <div>❤23</div>
+          </div>
+        </div>
+      </Stcard>
+    </Stbox>
   );
 };
 

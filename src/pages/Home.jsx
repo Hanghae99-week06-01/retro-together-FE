@@ -1,11 +1,21 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Layout from '../components/Layout';
 import Header from '../components/Header';
 import Banner from '../components/Banner';
 import styled from 'styled-components';
 import Card from '../components/Card';
+import { __getPostThunk } from '../redux/modules/postsSlice';
+import { useSelector, useDispatch } from 'react-redux';
 
 const Home = () => {
+  const posts = useSelector((state) => state.posts.posts);
+  console.log(posts);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(__getPostThunk());
+  }, [dispatch]);
+
   return (
     <Layout>
       <Header />
@@ -30,7 +40,11 @@ const Home = () => {
         </Stbox>
       </div>
       <Stcardoutline>
-        <Card />
+        <div className="row row-cols-1 row-cols-md-5 g-4">
+          {posts.map((post) => (
+            <Card key={post.id} post={post} />
+          ))}
+        </div>
       </Stcardoutline>
     </Layout>
   );
