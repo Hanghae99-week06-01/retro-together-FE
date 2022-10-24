@@ -4,12 +4,11 @@ import axios from 'axios';
 export const getPostCommentsThunk = createAsyncThunk(
   'GET_POST_COMMENTS',
   async (payload, thunkAPI) => {
-    console.log(payload);
     try {
       const { data } = await axios.get(
-        `http://localhost:3001/comments?todoId=${payload}`
+        'http://localhost:3001/comments'
+        // `http://localhost:3001/comments?todoId=${payload}`
       );
-      console.log(data);
       return thunkAPI.fulfillWithValue(data);
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
@@ -38,6 +37,21 @@ export const deletePostCommentsThunk = createAsyncThunk(
     try {
       await axios.delete(`http://localhost:3001/comments/${payload}`);
       return thunkAPI.fulfillWithValue(payload);
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error);
+    }
+  }
+);
+
+export const editPostCommentsThunk = createAsyncThunk(
+  'EDIT_POST_COMMENTS',
+  async (payload, thunkAPI) => {
+    try {
+      const { data } = await axios.post(
+        `http://localhost:3001/comments/${payload.id}`,
+        payload
+      );
+      return thunkAPI.fulfillWithValue(data);
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
     }

@@ -1,13 +1,14 @@
 import React from 'react';
+import Layout from '../components/Layout';
 import PostCommentItem from '../components/PostCommentItem';
 import AddPostComments from '../features/comments/AddPostComments';
 
 const PostComments = () => {
   return (
-    <div>
+    <Layout>
       <AddPostComments />
       <PostCommentItem />
-    </div>
+    </Layout>
   );
 };
 

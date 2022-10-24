@@ -17,6 +17,10 @@ const AddPostComments = () => {
     setComment('');
   };
 
+  const onKeyPress = (e) => {
+    if (e.key === 'Enter') onAddComment();
+  };
+
   return (
     <StComments>
       <StCommentsContainer>
@@ -26,6 +30,7 @@ const AddPostComments = () => {
           onChange={(e) => setComment(e.target.value)}
           value={content}
           placeholder="댓글을 작성하세요"
+          onKeyPress={onKeyPress}
         />
         <StButtonWrapper>
           <button onClick={onAddComment}>댓글 작성</button>
