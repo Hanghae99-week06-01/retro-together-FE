@@ -1,14 +1,8 @@
 {
   "comments": [
     {
-      "id": 1,
-      "body": "some comment",
-      "postId": 1
-    },
-    {
-      "postId": 1,
-      "reply": "댓글 입니다.",
-      "id": 2
+      "content": "some comment",
+      "id": 1
     }
   ]
 }

@@ -50,14 +50,14 @@ const initialState = {
   error: null,
 };
 
-const replySlice = createSlice({
+const postCommentsSlice = createSlice({
   name: 'comments',
   initialState,
   reducers: {},
   extraReducers: {
     [getPostCommentsThunk.fulfilled]: (state, action) => {
       state.isLoading = false;
-      state.comments.data = action.payload;
+      state.comments = action.payload;
     },
     [getPostCommentsThunk.pending]: (state) => {
       state.isLoading = true;
@@ -94,4 +94,4 @@ const replySlice = createSlice({
   },
 });
 
-export default replySlice.reducer;
+export default postCommentsSlice.reducer;
