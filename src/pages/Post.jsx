@@ -1,37 +1,50 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Header from '../components/Header';
 import Layout from '../components/Layout';
 import Comment from './Comment';
 import styled from 'styled-components';
-import { useDispatch } from 'react-redux';
+import { useNavigate, useParams } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
+import { __getpostThunk } from '../redux/modules/postSlice';
 
 const Post = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const { id } = useParams();
+  const posts = useSelector((state) => state.posts.posts);
+  console.log(posts);
+  // const post = useSelector((state) => state.posts.post);
+
+  const postid = posts.filter((post) => post.id === Number(id))[0];
+
+  useEffect(() => {
+    dispatch(__getpostThunk(id));
+  }, [dispatch]);
 
   return (
     <Layout>
       <Header />
 
       <Stoutline>
-        <div className="btn btn-dark">TIL</div>
+        <div className="btn btn-dark">{postid.category}</div>
 
         <div>
           <div>제목</div>
-          <Stinput>title</Stinput>
+          <Stinput>{postid.title}</Stinput>
         </div>
         <div>
           <div>TIL/ WIL</div>
-          <Sttextdiv>내용</Sttextdiv>
+          <Sttextdiv>{postid.twil_body}</Sttextdiv>
         </div>
         <div>
           <div>회고</div>
-          <Sttextdiv>내용</Sttextdiv>
+          <Sttextdiv>{postid.recall_body}</Sttextdiv>
         </div>
 
         <hr />
 
         <StcastegoryBox>
-          <Stcategory>#React</Stcategory>
+          <Stcategory>{postid.tag}</Stcategory>
           <Stcategory>#Test</Stcategory>
         </StcastegoryBox>
 

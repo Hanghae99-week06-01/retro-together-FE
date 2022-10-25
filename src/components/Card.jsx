@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react';
 import styled from 'styled-components';
-import { exdata } from '../data';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -12,7 +11,12 @@ const Card = ({ post }) => {
   // console.log(posts);
   return (
     <Stbox className="col" key={post.id}>
-      <Stcard className="card" onClick={() => navigate('/post')}>
+      <Stcard
+        className="card"
+        onClick={() => {
+          navigate(`/post/${post.id}`);
+        }}
+      >
         <Stcardimg src={post.url} className="card-img-top" alt={post.title} />
         <div className="card-body">
           <h5 className="card-title">{post.title}</h5>

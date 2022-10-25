@@ -3,11 +3,10 @@ import { createSlice,createAsyncThunk } from "@reduxjs/toolkit";
 
 //GET thunk
 export const __getPostThunk = createAsyncThunk(
-  "GET_POST",
+  "GET_POSTS",
   async(payload, thunkAPI) => {
     try{
       const data = await axios.get(`http://localhost:3001/posts`)
-      console.log(data)
       return thunkAPI.fulfillWithValue(data.data);
     }catch (err) {
       return thunkAPI.rejectWithValue(err);

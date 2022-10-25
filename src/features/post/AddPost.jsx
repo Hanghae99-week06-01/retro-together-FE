@@ -23,7 +23,6 @@ const AddPost = () => {
     url: '',
     tag: '',
   });
-  console.log(post);
 
   const onSubmitHandler = (post) => {
     // e.preventDefault();

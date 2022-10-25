@@ -1,14 +1,21 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
-import { exdata } from '../data';
 import './Banner.css';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
+import { __getPostThunk } from '../redux/modules/postsSlice';
 
-const Banner = ({ post }) => {
+const Banner = () => {
   const navigate = useNavigate();
+  const posts = useSelector((state) => state.posts.posts);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(__getPostThunk());
+  }, [dispatch]);
 
   const settings = {
     infinite: false,
@@ -45,10 +52,15 @@ const Banner = ({ post }) => {
     <StBanner>
       <Stoutline>
         <Slider {...settings}>
-          {exdata.map((post) => (
-            <Stcard key={post.key} onClick={() => navigate('/post')}>
+          {posts.map((post) => (
+            <Stcard
+              key={post.key}
+              onClick={() => {
+                navigate(`/post/${post.id}`);
+              }}
+            >
               <Stcardtop>
-                <Stcardimg src={post.thumbnailUrl} alt={post.title} />
+                <Stcardimg src={post.url} alt={post.title} />
               </Stcardtop>
               <Stcardbottom>
                 <Sttitle>{post.title}</Sttitle>

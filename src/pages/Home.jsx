@@ -9,7 +9,7 @@ import { useSelector, useDispatch } from 'react-redux';
 
 const Home = () => {
   const posts = useSelector((state) => state.posts.posts);
-  console.log(posts);
+
   const dispatch = useDispatch();
 
   useEffect(() => {
