@@ -25,7 +25,7 @@ export const __addPostThunk = createAsyncThunk(
           return thunkAPI.rejectWithValue(error);
       }}
   );
-  
+
 
 
 const initialState = {
@@ -40,6 +40,7 @@ export const postsSlice = createSlice({
   initialState,
   reducers:{},
   extraReducers:{
+    //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
     [__getPostThunk.fulfilled]: (state, action) => {
       state.isLoading = false;
       state.error = action.payload;
@@ -52,7 +53,7 @@ export const postsSlice = createSlice({
     [__getPostThunk.pending]: (state) => {
       state.isLoading = true;
     },
-
+    //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
     [__addPostThunk.pending]: (state) => {
       state.isLoading = true; 
     },
@@ -64,7 +65,6 @@ export const postsSlice = createSlice({
     [__addPostThunk.rejected]: (state, action) => {
       state.isLoading = false; 
     },
-
 
   }
 })

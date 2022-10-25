@@ -1,11 +1,11 @@
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import Header from '../components/Header';
 import Layout from '../components/Layout';
 import Comment from './Comment';
 import styled from 'styled-components';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import { __getpostThunk } from '../redux/modules/postSlice';
+import { __getpostThunk, __deletepostThunk } from '../redux/modules/postSlice';
 
 const Post = () => {
   const dispatch = useDispatch();
@@ -14,12 +14,18 @@ const Post = () => {
   const posts = useSelector((state) => state.posts.posts);
   console.log(posts);
   // const post = useSelector((state) => state.posts.post);
-
   const postid = posts.filter((post) => post.id === Number(id))[0];
+
+  const [ButChange, setButChange] = useState(true);
 
   useEffect(() => {
     dispatch(__getpostThunk(id));
   }, [dispatch]);
+
+  const onDeleteHandler = () => {
+    dispatch(__deletepostThunk(id));
+    navigate('/');
+  };
 
   return (
     <Layout>
@@ -49,7 +55,36 @@ const Post = () => {
         </StcastegoryBox>
 
         <Stbutdiv>
-          <button>수정 or 저장</button>
+          <button
+            onClick={() => {
+              const result = window.confirm('삭제하시겠습니까?');
+
+              if (result) {
+                return onDeleteHandler();
+              } else {
+                return;
+              }
+            }}
+          >
+            삭제하기
+          </button>
+          {ButChange ? (
+            <button
+              onClick={() => {
+                setButChange(false);
+              }}
+            >
+              수정하기
+            </button>
+          ) : (
+            <button
+              onClick={() => {
+                setButChange(true);
+              }}
+            >
+              저장하기
+            </button>
+          )}
         </Stbutdiv>
         <hr />
         <Comment />

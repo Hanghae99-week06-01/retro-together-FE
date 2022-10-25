@@ -6,6 +6,10 @@ const Header = ({ porpsChange }) => {
   const [ButChange, setButChange] = useState(true);
   const navigate = useNavigate();
 
+  useEffect(() => {
+    setButChange(porpsChange);
+  }, [setButChange]);
+
   return (
     <Stoutline>
       <Sttitle
@@ -20,9 +24,10 @@ const Header = ({ porpsChange }) => {
           {ButChange ? (
             <Stwritein
               onClick={() => {
-                console.log(ButChange);
-                navigate('/addpost', { state: { postChange: true } });
                 setButChange(false);
+                console.log(ButChange);
+                //버튼을 누르면 false (이전으로) 바껴야됨 false을 넘겨줘야됌
+                navigate('/addpost', { state: { postChange: false } });
               }}
             >
               작성하기
@@ -32,7 +37,8 @@ const Header = ({ porpsChange }) => {
               onClick={() => {
                 setButChange(true);
                 console.log(ButChange);
-                navigate('/', { state: { postChange: false } });
+                //버튼을 누르면 true (작성하기) 바껴야됨 true을 넘겨줘야됌
+                navigate('/', { state: { postChange: true } });
               }}
             >
               이전으로

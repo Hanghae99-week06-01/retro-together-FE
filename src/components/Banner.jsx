@@ -15,7 +15,7 @@ const Banner = () => {
 
   useEffect(() => {
     dispatch(__getPostThunk());
-  }, [dispatch]);
+  }, []);
 
   const settings = {
     infinite: false,
@@ -54,7 +54,7 @@ const Banner = () => {
         <Slider {...settings}>
           {posts.map((post) => (
             <Stcard
-              key={post.key}
+              key={post}
               onClick={() => {
                 navigate(`/post/${post.id}`);
               }}

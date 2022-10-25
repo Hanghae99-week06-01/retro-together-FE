@@ -31,26 +31,6 @@
       "id": 3
     },
     {
-      "category": "WIL",
-      "title": "테스트 제목 4",
-      "twil_body": "dd",
-      "recall_body": "dd",
-      "image": "",
-      "url": "https://i.pinimg.com/originals/d9/7a/d7/d97ad7d1f3f486dc9309a87b0209538a.jpg",
-      "tag": "#Java",
-      "id": 4
-    },
-    {
-      "category": "TIL",
-      "title": "테스트 제목 5",
-      "twil_body": "dd",
-      "recall_body": "dd",
-      "image": "",
-      "url": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSmBS9TX8s0CVT9EC3ugaIIuEQxTxZTULdAqg&usqp=CAU",
-      "tag": "#Python",
-      "id": 5
-    },
-    {
       "category": "TIL",
       "title": "테스트 제목 6",
       "twil_body": "dd",
@@ -59,8 +39,27 @@
       "url": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSjjpO5gNa9EE1TukzB5xqrLuRXj6KPZNCxS_gyLt9yVjKG_nhWvhASl4TPklYJIPkxonA&usqp=CAU",
       "tag": "#Vue",
       "id": 6
+    },
+    {
+      "category": "TIL",
+      "title": "ㅇ",
+      "twil_body": "ㅇ",
+      "recall_body": "",
+      "image": "",
+      "url": "https://images.pexels.com/photos/13915047/pexels-photo-13915047.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+      "tag": "",
+      "id": 9
+    },
+    {
+      "category": "",
+      "title": "ㅍ",
+      "twil_body": "ㅍ",
+      "recall_body": "ㅍ",
+      "image": "",
+      "url": "https://images.pexels.com/photos/13915047/pexels-photo-13915047.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+      "tag": "",
+      "id": 10
     }
-    
   ],
   "comments": [
     {

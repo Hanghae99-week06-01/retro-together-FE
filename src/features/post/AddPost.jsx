@@ -10,7 +10,7 @@ import { __addPostThunk } from '../../redux/modules/postsSlice';
 const AddPost = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const [Reque, Setreque] = useState(true);
+  // const [Reque, Setreque] = useState(false);
 
   const [category, Setcategory] = useState();
 
@@ -30,11 +30,12 @@ const AddPost = () => {
     navigate('/');
   };
 
-  useEffect(() => {}, []);
-
   const location = useLocation();
   const change = location.state.postChange;
-  // console.log('>>>' + change);
+  //작성하기 => 이전으로 바뀌어야 됌 작성하기 누르면 false 값 가져옴
+  // false을 header의 state에 넘겨줘야함
+  // 페이지 이동하면서 state값이 초기화됌 useeffect
+  console.log('>>>' + change);
 
   return (
     <Layout>
