@@ -4,34 +4,30 @@ import { useNavigate } from 'react-router-dom';
 import Modal from '../components/Modal';
 import { checkInMemberThunk } from '../redux/modules/memberSlice';
 
-//   axios.defaults.headers.post['refresh_token'] = token.refreshToken;
-//   axios.defaults.headers.post['authorization'] = token.token;
-//   const data = axios.post('https://spring.pyuri.dev/api/auth/members/logout')
-
 const SignIn = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const [key, setKey] = useState({
+  const [signIn, setSignIn] = useState({
     email: '',
     password: '',
   });
 
   const onChangeSignIn = (e) => {
     const { name, value } = e.target;
-    setKey({ ...key, [name]: value });
+    setSignIn({ ...signIn, [name]: value });
   };
 
   const onClickSignIn = () => {
-    if (key.email.trim() === '' || key.password.trim() === '') {
+    if (signIn.email.trim() === '' || signIn.password.trim() === '') {
       alert('모든 항목을 입력해주세요.');
     }
     dispatch(
       checkInMemberThunk({
-        emailId: key.email,
-        password: key.password,
+        emailId: signIn.email,
+        password: signIn.password,
       })
     );
-    setKey({ email: '', password: '' });
+    setSignIn({ email: '', password: '' });
   };
 
   const onKeyPress = (e) => {
@@ -42,17 +38,17 @@ const SignIn = () => {
     <Modal>
       <label>이메일</label>
       <input
-        type="text"
+        type="email"
         name="email"
-        value={key.email}
+        value={signIn.email}
         onChange={onChangeSignIn}
         onKeyPress={onKeyPress}
       />
       <label>비밀번호</label>
       <input
-        type="text"
+        type="password"
         name="password"
-        value={key.password}
+        value={signIn.password}
         onChange={onChangeSignIn}
         onKeyPress={onKeyPress}
       />

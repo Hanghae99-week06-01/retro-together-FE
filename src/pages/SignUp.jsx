@@ -7,33 +7,38 @@ import { addMemberThunk } from '../redux/modules/memberSlice';
 const SignUp = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const [member, setMember] = useState({
+  const [signUp, setSignUp] = useState({
     email: '',
     nickname: '',
     password: '',
+    checkpassword: '',
   });
 
   const onChangeSignUp = (e) => {
     const { name, value } = e.target;
-    setMember({ ...member, [name]: value });
+    setSignUp({ ...signUp, [name]: value });
   };
 
   const onClickSignUp = () => {
     if (
-      member.email.trim() === '' ||
-      member.nickname.trim() === '' ||
-      member.password.trim() === ''
+      signUp.email.trim() === '' ||
+      signUp.nickname.trim() === '' ||
+      signUp.password.trim() === ''
     ) {
-      return alert('모든 항목을 입력해주세요.');
+      alert('모든 항목을 입력해주세요.');
+    } else if (signUp.password !== signUp.checkpassword) {
+      alert('비밀번호를 확인해주세요.');
+      return;
     }
+    signUp.email = signUp.email.toLowerCase();
     dispatch(
       addMemberThunk({
-        email: member.email,
-        nickname: member.nickname,
-        password: member.password,
+        email: signUp.email,
+        nickname: signUp.nickname,
+        password: signUp.password,
       })
     );
-    setMember({ email: '', nickname: '', password: '' });
+    setSignUp({ email: '', nickname: '', password: '', checkpassword: '' });
   };
 
   const onKeyPress = (e) => {
@@ -44,9 +49,9 @@ const SignUp = () => {
     <Modal>
       <label>이메일</label>
       <input
-        type="text"
+        type="email"
         name="email"
-        value={member.email}
+        value={signUp.email}
         onChange={onChangeSignUp}
         onKeyPress={onKeyPress}
       />
@@ -54,16 +59,25 @@ const SignUp = () => {
       <input
         type="text"
         name="nickname"
-        value={member.nickname}
+        value={signUp.nickname}
         maxLength={8}
         onChange={onChangeSignUp}
         onKeyPress={onKeyPress}
       />
       <label>비밀번호</label>
       <input
-        type="text"
+        type="password"
         name="password"
-        value={member.password}
+        value={signUp.password}
+        minLength={6}
+        onChange={onChangeSignUp}
+        onKeyPress={onKeyPress}
+      />
+      <label>비밀번호 확인</label>
+      <input
+        type="password"
+        name="checkpassword"
+        value={signUp.checkpassword}
         minLength={6}
         onChange={onChangeSignUp}
         onKeyPress={onKeyPress}

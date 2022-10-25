@@ -23,16 +23,20 @@ export const checkInMemberThunk = createAsyncThunk(
       const config = {
         headers: {
           'Content-Type': 'application/json',
+          'Access-Control-Allow-Origin': '*',
         },
       };
       const { data } = await axios
-        .post(SIGNIN, { emailId, password }, config)
+        .post(
+          'http://15.164.230.31:8080/api/member/login',
+          { emailId, password },
+          config
+        )
         .then((res) => {
           localStorage.setItem(
             'authorization',
             res.request.getResponseHeader('authorization')
           );
-          console.log(res);
           localStorage.setItem(
             'refresh_token',
             res.request.getResponseHeader('refresh_token')
@@ -82,3 +86,5 @@ const memberSlice = createSlice({
 });
 
 export default memberSlice.reducer;
+
+//
