@@ -3,7 +3,11 @@ import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import Modal from '../components/Modal';
-import { checkInMemberThunk } from '../redux/modules/memberSlice';
+import {
+  checkInMemberThunk,
+  checkOutMemberThunk,
+  setCookie,
+} from '../redux/modules/memberSlice';
 
 const SignIn = () => {
   const navigate = useNavigate();
@@ -29,6 +33,12 @@ const SignIn = () => {
       })
     );
     setSignIn({ email: '', password: '' });
+  };
+
+  const onClickSignOut = () => {
+    dispatch(checkOutMemberThunk(setCookie()));
+    alert('로그아웃 되었습니다.');
+    navigate('/');
   };
 
   const onKeyPress = (e) => {
@@ -72,6 +82,9 @@ const SignIn = () => {
             >
               회원가입
             </label>
+          </div>
+          <div>
+            <button onClick={onClickSignOut}>로그아웃</button>
           </div>
         </SignContianer>
       </SignWrap>

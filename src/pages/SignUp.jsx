@@ -34,9 +34,10 @@ const SignUp = () => {
     signUp.email = signUp.email.toLowerCase();
     dispatch(
       addMemberThunk({
-        email: signUp.email,
+        emailId: signUp.email,
         nickname: signUp.nickname,
         password: signUp.password,
+        passwordConfirm: signUp.checkpassword,
       })
     );
     setSignUp({ email: '', nickname: '', password: '', checkpassword: '' });

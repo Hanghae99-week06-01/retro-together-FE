@@ -1,14 +1,37 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import axios from 'axios';
+import { Cookies } from 'react-cookie';
 
-const MEMBER = process.env.REACT_APP_MEMBER;
-const SIGNIN = process.env.REACT_APP_SIGNIN;
+const baseURL = process.env.REACT_APP_BASEURL;
+
+const cookies = new Cookies();
+
+export const setCookie = (name, value, option) => {
+  return cookies.set(name, value, { ...option });
+};
+
+export const getCookie = (name) => {
+  return cookies.get(name);
+};
+
+export const removeCookie = (name) => {
+  return cookies.remove(name);
+};
+
+export const instance = axios.create({
+  baseURL: baseURL,
+  headers: {
+    'Content-Type': 'application/json',
+    'Access-Control-Allow-Origin': '*',
+    authorization: `Bearer ${getCookie('token')}`,
+  },
+});
 
 export const addMemberThunk = createAsyncThunk(
   'ADD_MEMBER',
   async (payload, thunkAPI) => {
     try {
-      const { data } = await axios.post(MEMBER, payload);
+      const { data } = await instance.post('/api/member/signup', payload);
       return thunkAPI.fulfillWithValue(data);
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
@@ -20,29 +43,35 @@ export const checkInMemberThunk = createAsyncThunk(
   'CHECK_IN_MEMBER',
   async ({ emailId, password }, thunkAPI) => {
     try {
-      const config = {
-        headers: {
-          'Content-Type': 'application/json',
-          'Access-Control-Allow-Origin': '*',
-        },
-      };
-      const { data } = await axios
-        .post(
-          'http://15.164.230.31:8080/api/member/login',
-          { emailId, password },
-          config
-        )
+      const { data } = await instance
+        .post('/api/member/login', {
+          emailId,
+          password,
+        })
         .then((res) => {
-          localStorage.setItem(
+          setCookie(
             'authorization',
             res.request.getResponseHeader('authorization')
           );
-          localStorage.setItem(
-            'refresh_token',
-            res.request.getResponseHeader('refresh_token')
+          setCookie(
+            'refresh-token',
+            res.request.getResponseHeader('refresh-token')
           );
         });
+      console.log(data);
       return thunkAPI.fulfillWithValue(data);
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error);
+    }
+  }
+);
+
+export const checkOutMemberThunk = createAsyncThunk(
+  'CHECK_OUT_MEMBER',
+  async (payload, thunkAPI) => {
+    try {
+      await instance.post('/api/auth/member/logout');
+      return removeCookie('authorization', 'refresh-token');
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
     }
@@ -82,9 +111,18 @@ const memberSlice = createSlice({
       state.isLoading = false;
       state.error = action.payload;
     },
+    [checkOutMemberThunk.fulfilled]: (state, action) => {
+      state.isLoading = false;
+      state.success = true;
+    },
+    [checkOutMemberThunk.pending]: (state) => {
+      state.isLoading = true;
+    },
+    [checkOutMemberThunk.rejected]: (state, action) => {
+      state.isLoading = false;
+      state.error = action.payload;
+    },
   },
 });
 
 export default memberSlice.reducer;
-
-//
