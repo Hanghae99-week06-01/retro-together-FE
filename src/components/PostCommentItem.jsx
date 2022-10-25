@@ -48,14 +48,17 @@ const PostCommentItem = () => {
           return (
             <StComments key={comment.id}>
               <StCommentsContainer>
-                <div>{comment.content}</div>
+                <div>사용자</div>
                 <StCommentsButtonContainer>
-                  <button>수정</button>
-                  <button onClick={() => onDeleteComment(comment.id)}>
+                  <StCommentsButton>수정</StCommentsButton>
+                  <StCommentsButton onClick={() => onDeleteComment(comment.id)}>
                     삭제
-                  </button>
+                  </StCommentsButton>
                 </StCommentsButtonContainer>
               </StCommentsContainer>
+              <div>
+                <div>{comment.content}</div>
+              </div>
             </StComments>
           );
         })}
@@ -70,6 +73,7 @@ const StComments = styled.div`
   display: grid;
   align-items: center;
   justify-content: center;
+  width: 100%;
 `;
 
 const StCommentsContainer = styled.div`
@@ -77,10 +81,23 @@ const StCommentsContainer = styled.div`
   align-items: center;
   justify-content: space-between;
   width: 800px;
+  height: 50px;
   margin: 20px 0;
 `;
 
 const StCommentsButtonContainer = styled.div`
   display: flex;
   gap: 10px;
+`;
+
+const StCommentsButton = styled.span`
+  background-color: #808080;
+  color: white;
+  border-radius: 3px;
+  width: 35px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
 `;
