@@ -2,18 +2,18 @@
   "comments": [
     {
       "todoId": "",
-      "content": "나는 댓글입니다",
-      "id": 1
+      "content": "",
+      "id": 0
     },
     {
-      "todoId": "post",
-      "content": "댓글입니다.",
-      "id": 2
-    },
-    {
-      "todoId": "post",
-      "content": "댓글입니다.",
+      "todoId": 3,
+      "content": "3번 댓글",
       "id": 3
+    },
+    {
+      "todoId": "1",
+      "content": "댓글 추가하자 수정1",
+      "id": 4
     }
   ]
 }

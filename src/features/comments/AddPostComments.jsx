@@ -1,37 +1,42 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
-import { addPostCommentsThunk } from '../../redux/modules/postCommentsSlice';
 import styled from 'styled-components';
+import { addPostCommentsThunk } from '../../redux/modules/postCommentsSlice';
 
 const AddPostComments = () => {
   const dispatch = useDispatch();
   const { id } = useParams();
-  const { comments } = useSelector((state) => state.postCommentsSlice);
-  const [content, setComment] = useState('');
+  const { data } = useSelector((state) => state.comments.commentsByTodoId);
+  const [comment, setComment] = useState({
+    content: '',
+  });
 
-  const onAddComment = () => {
-    if (content.trim() === '') {
-      return alert('댓글을 입력해주세요.');
-    }
-    dispatch(addPostCommentsThunk({ todoId: id, content }));
-    setComment('');
+  const onChangeComment = (e) => {
+    const { name, value } = e.target;
+    setComment({ ...comment, [name]: value });
   };
 
-  const onKeyPress = (e) => {
-    if (e.key === 'Enter') onAddComment();
+  const onAddComment = () => {
+    if (comment.content.trim() === '') {
+      return alert('댓글을 입력해주세요.');
+    }
+    dispatch(addPostCommentsThunk({ todoId: +id, ...comment }));
+    setComment({
+      content: '',
+    });
   };
 
   return (
     <StComments>
       <StCommentsContainer>
-        <h3>{comments.length} 개의 댓글</h3>
+        <h3>{data.length} 개의 댓글</h3>
         <Textarea
           type="text"
-          onChange={(e) => setComment(e.target.value)}
-          value={content}
+          name="content"
+          onChange={onChangeComment}
+          value={comment.content}
           placeholder="댓글을 작성하세요"
-          onKeyPress={onKeyPress}
         />
         <StButtonWrapper>
           <StCommentsButton onClick={onAddComment}>댓글 작성</StCommentsButton>

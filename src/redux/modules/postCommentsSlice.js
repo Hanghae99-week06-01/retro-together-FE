@@ -2,12 +2,11 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import axios from 'axios';
 
 export const getPostCommentsThunk = createAsyncThunk(
-  'GET_POST_COMMENTS',
+  'GET_POST_COMMENTS', // 댓글 조회
   async (payload, thunkAPI) => {
     try {
       const { data } = await axios.get(
-        'http://localhost:3001/comments'
-        // `http://localhost:3001/comments?todoId=${payload}`
+        `http://localhost:3001/comments?todoId=${payload}`
       );
       return thunkAPI.fulfillWithValue(data);
     } catch (error) {
@@ -17,7 +16,7 @@ export const getPostCommentsThunk = createAsyncThunk(
 );
 
 export const addPostCommentsThunk = createAsyncThunk(
-  'ADD_POST_COMMENTS',
+  'ADD_POST_COMMENTS', // 댓글 추가
   async (payload, thunkAPI) => {
     try {
       const { data } = await axios.post(
@@ -32,7 +31,7 @@ export const addPostCommentsThunk = createAsyncThunk(
 );
 
 export const deletePostCommentsThunk = createAsyncThunk(
-  'DELETE_POST_COMMENTS',
+  'DELETE_POST_COMMENTS', // 댓글 삭제
   async (payload, thunkAPI) => {
     try {
       await axios.delete(`http://localhost:3001/comments/${payload}`);
@@ -44,24 +43,29 @@ export const deletePostCommentsThunk = createAsyncThunk(
 );
 
 export const editPostCommentsThunk = createAsyncThunk(
-  'EDIT_POST_COMMENTS',
+  'UPDATE_COMMENT', // 댓글 수정
   async (payload, thunkAPI) => {
     try {
-      const { data } = await axios.post(
-        `http://localhost:3001/comments/${payload.id}`,
-        payload
-      );
-      return thunkAPI.fulfillWithValue(data);
+      axios.patch(`http://localhost:3001/comments/${payload.id}`, payload);
+      return thunkAPI.fulfillWithValue(payload);
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
     }
   }
 );
 
+// 초기 상태 값
 const initialState = {
-  comments: [],
-  isLoading: false,
-  error: null,
+  comments: {
+    data: [],
+    isLoading: false,
+    error: null,
+  },
+  commentsByTodoId: {
+    data: [],
+    isLoading: false,
+    error: null,
+  },
 };
 
 const postCommentsSlice = createSlice({
@@ -69,42 +73,54 @@ const postCommentsSlice = createSlice({
   initialState,
   reducers: {},
   extraReducers: {
+    // 댓글 조회
     [getPostCommentsThunk.fulfilled]: (state, action) => {
-      state.isLoading = false;
-      state.comments = action.payload;
+      state.commentsByTodoId.isLoading = false;
+      state.commentsByTodoId.data = action.payload;
     },
     [getPostCommentsThunk.pending]: (state) => {
-      state.isLoading = true;
+      state.commentsByTodoId.isLoading = true;
     },
     [getPostCommentsThunk.rejected]: (state, action) => {
-      state.isLoading = false;
-      state.error = action.payload;
+      state.commentsByTodoId.isLoading = false;
+      state.commentsByTodoId.error = action.payload;
     },
+    // 댓글 추가
     [addPostCommentsThunk.fulfilled]: (state, action) => {
-      state.isLoading = false;
-      state.comments.push(action.payload);
+      state.commentsByTodoId.isLoading = false;
+      state.commentsByTodoId.data.push(action.payload);
     },
     [addPostCommentsThunk.pending]: (state) => {
-      state.isLoading = true;
+      state.commentsByTodoId.isLoading = true;
     },
     [addPostCommentsThunk.rejected]: (state, action) => {
-      state.isLoading = false;
-      state.error = action.payload;
+      state.commentsByTodoId.isLoading = false;
+      state.commentsByTodoId.error = action.payload;
     },
+    // 댓글 삭제
     [deletePostCommentsThunk.fulfilled]: (state, action) => {
-      state.isLoading = false;
-      const target = state.comments.findIndex(
-        (item) => item.id === action.payload
+      state.commentsByTodoId.isLoading = false;
+      const target = state.commentsByTodoId.data.findIndex(
+        (comment) => comment.id === action.payload
       );
-      state.comments.splice(target, 1);
+      state.commentsByTodoId.data.splice(target, 1);
     },
     [deletePostCommentsThunk.pending]: (state) => {
-      state.isLoading = true;
+      state.commentsByTodoId.isLoading = true;
     },
     [deletePostCommentsThunk.rejected]: (state, action) => {
-      state.isLoading = false;
-      state.error = action.payload;
+      state.commentsByTodoId.isLoading = false;
+      state.commentsByTodoId.error = action.payload;
     },
+    // 댓글 수정
+    [editPostCommentsThunk.fulfilled]: (state, action) => {
+      const target = state.commentsByTodoId.data.findIndex(
+        (comment) => comment.id === action.payload.id
+      );
+      state.commentsByTodoId.data.splice(target, 1, action.payload);
+    },
+    [editPostCommentsThunk.pending]: (state) => {},
+    [editPostCommentsThunk.rejected]: () => {},
   },
 });
 
