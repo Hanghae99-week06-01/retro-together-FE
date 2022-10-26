@@ -20,7 +20,6 @@ const Home = () => {
     <Layout>
       <Header />
       <Banner />
-
       <div>
         <Stbox>
           <Stboxtop>
