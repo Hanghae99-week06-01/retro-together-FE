@@ -1,29 +1,74 @@
 {
-  "comments": [
+  "posts": [
     {
-      "todoId": "",
-      "content": "",
-      "id": 0
+      "category": "TIL",
+      "title": "test",
+      "twil_body": "test",
+      "recall_body": "test",
+      "image": "",
+      "url": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS22LFrYw7XNt96CNhW7RKPQoYGmw7Aes8deQ&usqp=CAU",
+      "tag": "#test",
+      "id": 1
     },
     {
-      "todoId": 3,
-      "content": "3번 댓글",
+      "category": "TIL",
+      "title": "테스트 제목 2",
+      "twil_body": "ㅇㅇ",
+      "recall_body": "ㅇㅇ",
+      "image": "",
+      "url": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQtshuf_VB8GBYz-TBRN360De-SamOaNq1YN3Ei6S71YRDo99F0T-jq9KT6BcSmgqpgZVs&usqp=CAU",
+      "tag": "#Spring",
+      "id": 2
+    },
+    {
+      "category": "WIL",
+      "title": "테스트 제목 3",
+      "twil_body": "dd",
+      "recall_body": "dd",
+      "image": "",
+      "url": "https://p.kindpng.com/picc/s/171-1718046_javascript-programming-language-logo-hd-png-download.png",
+      "tag": "#Javascript",
       "id": 3
     },
     {
-      "todoId": "1",
-      "content": "댓글 추가하자 수정1",
-      "id": 4
-    },
-    {
-      "todoId": "1",
-      "content": "1번 상세보기 3번 댓글 수정1",
+      "category": "TIL",
+      "title": "테스트 제목 6",
+      "twil_body": "dd",
+      "recall_body": "dd",
+      "image": "",
+      "url": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSjjpO5gNa9EE1TukzB5xqrLuRXj6KPZNCxS_gyLt9yVjKG_nhWvhASl4TPklYJIPkxonA&usqp=CAU",
+      "tag": "#Vue",
       "id": 6
     },
     {
-      "todoId": 1,
-      "content": "1번 글의 3번 댓글",
-      "id": 7
+      "category": "TIL",
+      "title": "ㅇ",
+      "twil_body": "ㅇ",
+      "recall_body": "",
+      "image": "",
+      "url": "https://images.pexels.com/photos/13915047/pexels-photo-13915047.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+      "tag": "",
+      "id": 9
+    },
+    {
+      "category": "",
+      "title": "ㅍ",
+      "twil_body": "ㅍ",
+      "recall_body": "ㅍ",
+      "image": "",
+      "url": "https://images.pexels.com/photos/13915047/pexels-photo-13915047.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+      "tag": "",
+      "id": 10
     }
-  ]
+  ],
+  "comments": [
+    {
+      "id": 1,
+      "body": "some comment",
+      "postId": 1
+    }
+  ],
+  "profile": {
+    "name": "typicode"
+  }
 }
