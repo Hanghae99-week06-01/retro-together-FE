@@ -3,7 +3,7 @@ import { createSlice,createAsyncThunk } from "@reduxjs/toolkit";
 
 //GET thunk
 export const __getPostThunk = createAsyncThunk(
-  "GET_POSTS",
+  "GET_POST",
   async(payload, thunkAPI) => {
     try{
       const data = await axios.get(`http://localhost:3001/posts`)
@@ -28,6 +28,7 @@ export const __addPostThunk = createAsyncThunk(
 
 
 
+
 const initialState = {
   posts: [],
   isLoading: false,
@@ -43,12 +44,11 @@ export const postsSlice = createSlice({
     //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
     [__getPostThunk.fulfilled]: (state, action) => {
       state.isLoading = false;
-      state.error = action.payload;
-      state.posts = [...action.payload]
+      state.post = action.payload;
+      state.posts = [...action.payload];
     },
     [__getPostThunk.rejected]: (state, action) => {
       state.isLoading = false;
-      state.error = action.payload;
     },
     [__getPostThunk.pending]: (state) => {
       state.isLoading = true;
@@ -59,12 +59,12 @@ export const postsSlice = createSlice({
     },
     [__addPostThunk.fulfilled]: (state, action) => {
       state.isLoading = false; 
-      state.error = action.payload;
       state.posts = [...state.posts, action.payload]; 
     },
     [__addPostThunk.rejected]: (state, action) => {
       state.isLoading = false; 
     },
+  
 
   }
 })

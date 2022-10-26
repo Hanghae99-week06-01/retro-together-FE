@@ -47,6 +47,13 @@ const Header = ({ porpsChange }) => {
         </Stwrite>
         <Stbut>로그인</Stbut>
         <Stbut>회원가입</Stbut>
+        <Stbut
+          onClick={() => {
+            navigate('/Mypage');
+          }}
+        >
+          마이페이지
+        </Stbut>
       </Stbutdiv>
     </Stoutline>
   );

@@ -9,15 +9,12 @@ export const __getpostThunk = createAsyncThunk(
     console.log(payload)
       try{
           const data = await axios.get(`http://localhost:3001/posts/${payload}`);
-          console.log(data.data)
           return thunkAPI.fulfillWithValue(data.data);
           
       }catch (error) {
           return thunkAPI.rejectWithValue(error);
       }}
   );
-
-
 
 //DELETE thunk
 export const __deletepostThunk = createAsyncThunk(
@@ -32,9 +29,44 @@ export const __deletepostThunk = createAsyncThunk(
         }}
     );
 
+    //Update thunk
+  export const __updatePostThunk = createAsyncThunk(
+    "UPDATE_POST", 
+    async (payload, thunkAPI) => { 
+        try{
+            const test = await axios.patch(`http://localhost:3001/Posts/${payload.id}`,payload); 
+            return thunkAPI.fulfillWithValue(test.data);
+            
+        }catch(error){
+            return thunkAPI.rejectWithValue(error);
+        }}
+);
+
+    export const __getOnepostThunk = createAsyncThunk(
+      "GET_ONE_POST",
+      async (payload, thunkAPI) => {
+          try {
+              const getOnepost = thunkAPI.getState().posts.posts.filter((v)=> {
+                  return Number(v.id) === Number(payload);
+              })[0];
+              return thunkAPI.fulfillWithValue(getOnepost);
+          } catch (error) {
+              return thunkAPI.rejectWithValue(error);
+          }}
+      );
   
+
 const initialState = {
   posts: [],
+  post:{
+    category: '',
+    title: '',
+    twil_body: '',
+    recall_body: '',
+    image: '',
+    url: '',
+    tag: '',
+  },
   isLoading: false, 
   isSuccess: false,
   error: null,
@@ -47,8 +79,8 @@ const initialState = {
     extraReducers:{
         [__getpostThunk.fulfilled]: (state, action) => {
             state.isLoading = false;
-            state.post = action.payload;
-            state.posts = [action.payload];
+            // state.post = action.payload;
+            state.posts = [...action.payload]
         },
         [__getpostThunk.rejected]: (state, action) => {
             state.isLoading = false;
@@ -70,7 +102,27 @@ const initialState = {
             state.isLoading = false; 
             state.error = action.payload; 
         },
-        
+        //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+        [__getOnepostThunk.fulfilled]: (state, action) => {
+          state.isLoading = false; 
+          state.posts = {...action.payload};
+        },
+
+          //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+        [__updatePostThunk.fulfilled]: (state, action) => {
+          state.isLoading = false;
+          // const id = action.payload.id;
+          state.post = action.payload;
+          state.posts = [...state.posts.filter((v)=>v.id !== action.payload.id),action.payload];
+        },
+        [__updatePostThunk.pending]: (state) => {
+            state.isLoading = true;
+        },
+        [__updatePostThunk.rejected]: (state, action) => {
+            state.isLoading = false;
+            state.error = action.payload;
+        },
+          
     },
 });
 
