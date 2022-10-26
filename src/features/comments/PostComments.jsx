@@ -10,6 +10,7 @@ const PostComments = () => {
   const { id } = useParams();
   const dispatch = useDispatch();
   const { data } = useSelector((state) => state.comments.commentsByTodoId);
+  console.log(data);
 
   useEffect(() => {
     dispatch(getPostCommentsThunk(id));
@@ -17,13 +18,9 @@ const PostComments = () => {
 
   return (
     <div>
+      <button onClick={() => navigate('/')}>홈</button>
       <div>
-        <div>
-          <button onClick={() => navigate('/')}>홈</button>
-        </div>
-      </div>
-      <AddPostComments />
-      <div>
+        <AddPostComments />
         {data.map((comment) => (
           <PostComment key={comment.id} comment={comment} />
         ))}

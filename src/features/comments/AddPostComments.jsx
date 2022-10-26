@@ -27,6 +27,10 @@ const AddPostComments = () => {
     });
   };
 
+  const onEnter = (e) => {
+    if (e.key === 'Enter') onAddComment();
+  };
+
   return (
     <StComments>
       <StCommentsContainer>
@@ -35,6 +39,7 @@ const AddPostComments = () => {
           type="text"
           name="content"
           onChange={onChangeComment}
+          onKeyPress={onEnter}
           value={comment.content}
           placeholder="댓글을 작성하세요"
         />

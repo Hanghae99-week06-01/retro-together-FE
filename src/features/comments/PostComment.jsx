@@ -11,6 +11,7 @@ import {
   getPostCommentThunk,
   globalEditModeToggle,
 } from '../../redux/modules/postCommentSlice';
+import CommentsLike from './CommentsLike';
 
 const PostComment = ({ comment }) => {
   const { id } = useParams();
@@ -58,6 +59,10 @@ const PostComment = ({ comment }) => {
     setUpdatedComment(content);
   }, [content]);
 
+  const onEnter = (e) => {
+    if (e.key === 'Enter') onUpdateComment();
+  };
+
   return (
     <StComments>
       {isEdit ? (
@@ -70,6 +75,7 @@ const PostComment = ({ comment }) => {
                   setUpdatedComment(e.target.value);
                 }}
                 value={updatedComment}
+                onKeyPress={onEnter}
               />
               <StCommentsButtonContainer>
                 <StCommentsButton onClick={onCancelComment}>
@@ -88,10 +94,16 @@ const PostComment = ({ comment }) => {
             <StCommentsContainer>
               <div>사용자</div>
               <StCommentsButtonContainer>
-                <StCommentsButton onClick={onEditComment}>
+                <StCommentsButton
+                  onClick={onEditComment}
+                  disabled={isGlobalEditmode}
+                >
                   수정
                 </StCommentsButton>
-                <StCommentsButton onClick={onDeleteComment}>
+                <StCommentsButton
+                  onClick={onDeleteComment}
+                  disabled={isGlobalEditmode}
+                >
                   삭제
                 </StCommentsButton>
               </StCommentsButtonContainer>
@@ -100,6 +112,7 @@ const PostComment = ({ comment }) => {
               <div>{comment.content}</div>
             </div>
           </StComments>
+          <CommentsLike />
         </>
       )}
     </StComments>
