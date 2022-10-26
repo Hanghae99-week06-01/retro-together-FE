@@ -5,11 +5,8 @@ import AddPost from "../features/post/AddPost"
 import Post from "../pages/Post";
 import Mypage from "../pages/Mypage";
 
-
-
 const Router = () => {
-
-
+  
     return (
     <BrowserRouter>
         <Routes>

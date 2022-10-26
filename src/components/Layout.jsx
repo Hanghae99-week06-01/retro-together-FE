@@ -8,6 +8,7 @@ const Layout = ({ children }) => {
 export default Layout;
 
 const StLayout = styled.div`
+
   padding: 0;
   margin: auto;
   display: block;
