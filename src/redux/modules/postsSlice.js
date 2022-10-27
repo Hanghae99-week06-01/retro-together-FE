@@ -16,30 +16,17 @@ export const __getPostThunk = createAsyncThunk(
 
 //Addthunk
 export const __addPostThunk = createAsyncThunk(
-  'ADD_POST',
-  async (payload, thunkAPI) => {
-    console.log(payload);
-    //콜백
-    try {
-      const formData = new FormData();
-      formData.append('title', payload.title);
-      formData.append('content', payload.content);
-      formData.append('data', payload.data[0], {
-        'Content-type': 'Multipart/form-data',
-      });
-      formData.append('imageUrl', payload.imageUrl);
-      formData.append('tag', '나는 태그');
-      const postList = await instance.post('/api/auth/post/', formData, {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-        },
-      });
-      return thunkAPI.fulfillWithValue(postList);
-    } catch (error) {
-      return thunkAPI.rejectWithValue(error);
-    }
-  }
-);
+  "ADD_POST", 
+  async (payload, thunkAPI) => { //콜백
+    console.log(payload)
+      try{
+          const postList = await instance.post("/api/auth/post", payload);
+
+          return thunkAPI.fulfillWithValue(postList.data);
+      }catch (error) {
+          return thunkAPI.rejectWithValue(error);
+      }}
+  );
 
 const initialState = {
   posts: [],
