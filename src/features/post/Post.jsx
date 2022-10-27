@@ -74,14 +74,12 @@ const Post = () => {
           <>
             <StCategory>{postid.category}</StCategory>
             <StCategoryBox>
-              <StCategory>{postid.tag}</StCategory>
+              <StCategory>{postid.tags}</StCategory>
             </StCategoryBox>
             <StText>제목</StText>
             <StTitle>{postid.title}</StTitle>
             <StText>TIL/ WIL</StText>
-            <StContents>{postid.twil_body}</StContents>
-            <StText>회고</StText>
-            <StContents>{postid.recall_body}</StContents>
+            <StContents>{postid.content}</StContents>
           </>
         ) : (
           //수정화면
@@ -154,25 +152,6 @@ const Post = () => {
                 }}
               ></StContentTextarea>
             </div>
-            <div>
-              <div>회고</div>
-              <StContentTextarea
-                placeholder="recall"
-                type="text"
-                defaultValue={Update.recall_body}
-                onChange={(e) => {
-                  setUpdate(e.target.value);
-                }}
-              ></StContentTextarea>
-            </div>
-            이미지 파일로
-            <StImageFile className="input-group mb-3">
-              <input
-                type="file"
-                className="form-control"
-                id="inputGroupFile02"
-              />
-            </StImageFile>
             이미지 URL
             <div
               className="input-group mb-3"

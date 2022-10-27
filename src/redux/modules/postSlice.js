@@ -7,7 +7,7 @@ export const __getpostThunk = createAsyncThunk(
   async (payload, thunkAPI) => {
     //콜백
     try {
-      const data = await instance.get(`/api/post/${payload}`);
+      const data = await instance.get(`/api/post/{id}/${payload}`);
       return thunkAPI.fulfillWithValue(data.data);
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
@@ -20,7 +20,7 @@ export const __deletepostThunk = createAsyncThunk(
   'DELETE_POST',
   async (payload, thunkAPI) => {
     try {
-      await instance.delete(`/api/auth/post/${payload}`);
+      await instance.delete(`/api/auth/post/{id}/${payload}`);
       return thunkAPI.fulfillWithValue(payload);
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
@@ -34,7 +34,7 @@ export const __updatePostThunk = createAsyncThunk(
   async (payload, thunkAPI) => {
     try {
       const test = await instance.patch(
-        `/api/auth/post/${payload.id}`,
+        `/Posts/${payload.id}`,payload,
         payload
       );
       return thunkAPI.fulfillWithValue(test.data);

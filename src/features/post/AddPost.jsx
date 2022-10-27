@@ -14,13 +14,19 @@ const AddPost = () => {
   const [category, Setcategory] = useState();
 
   const [post, setPost] = useState({
+    category: '',
     title: '',
     content: '',
     imageUrl: '',
-    data: '',
+    tags: '',
   });
 
   const onSubmitHandler = (post) => {
+    // post.preventDefault();
+    if (post.url === '') {
+      post.url =
+        'https://images.velog.io/images/woojinshim103/post/534ee709-5c39-4a27-aac4-7d8e35b2c6fa/%E1%84%89%E1%85%B3%E1%84%91%E1%85%B3%E1%84%85%E1%85%B5%E1%86%BC%E1%84%85%E1%85%B3%E1%84%90%E1%85%A1%E1%86%AB%E1%84%8B%E1%85%B5.png';
+    }
     dispatch(__addPostThunk(post));
     navigate('/');
   };
@@ -107,7 +113,7 @@ const AddPost = () => {
           <Sttextarea
             placeholder="today"
             type="text"
-            value={post.twil_body}
+            value={post.content}
             onChange={(e) => {
               const { value } = e.target;
               setPost({
@@ -117,37 +123,6 @@ const AddPost = () => {
             }}
           ></Sttextarea>
         </div>
-        <div>
-          <div>회고</div>
-          <Sttextarea
-            placeholder="recall"
-            type="text"
-            value={post.recall_body}
-            onChange={(e) => {
-              const { value } = e.target;
-              setPost({
-                ...post,
-                recall_body: value,
-              });
-            }}
-          ></Sttextarea>
-        </div>
-        이미지 파일로
-        <Stimagefile className="input-group mb-3">
-          <input
-            type="file"
-            className="form-control"
-            id="inputGroupFile02"
-            value={post.data}
-            onChange={(e) => {
-              const { value } = e.target;
-              setPost({
-                ...post,
-                data: value,
-              });
-            }}
-          />
-        </Stimagefile>
         이미지 URL
         <div
           className="input-group mb-3"
@@ -165,12 +140,12 @@ const AddPost = () => {
         <hr />
         <input
           placeholder="#테그입력"
-          value={post.tag}
+          value={post.tags}
           onChange={(e) => {
             const { value } = e.target;
             setPost({
               ...post,
-              tag: value,
+              tags: value,
             });
           }}
         />
