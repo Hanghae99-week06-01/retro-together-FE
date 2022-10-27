@@ -44,7 +44,10 @@ export const checkOutMemberThunk = createAsyncThunk(
   async (payload, thunkAPI) => {
     try {
       await instance.post('/api/auth/member/logout');
-      return removeCookie('authorization', 'refresh-token');
+      sessionStorage.clear('emailId', 'nickname', 'id');
+      removeCookie('auth');
+      removeCookie('token');
+      return thunkAPI.fulfillWithValue(true);
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
     }
@@ -86,7 +89,7 @@ const memberSlice = createSlice({
     },
     [checkOutMemberThunk.fulfilled]: (state, action) => {
       state.isLoading = false;
-      state.success = true;
+      state.success = action.payload;
     },
     [checkOutMemberThunk.pending]: (state) => {
       state.isLoading = true;

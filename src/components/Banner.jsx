@@ -99,7 +99,7 @@ const StBannerList = styled.div`
   }
 `;
 
-const Stcard = styled.div`
+const StCard = styled.div`
   padding: 12px;
   background-color: #2c3639;
   border-radius: 12px;
@@ -111,14 +111,14 @@ const Stcard = styled.div`
   cursor: pointer;
 `;
 
-const Stcardtop = styled.div`
+const StCardTop = styled.div`
   align-items: center;
   display: flex;
   margin-bottom: 50px;
   margin: auto;
 `;
 
-const Stcardimg = styled.img`
+const StCardImg = styled.img`
   width: 20vh;
   height: 20vh;
   object-fit: cover;
@@ -127,14 +127,14 @@ const Stcardimg = styled.img`
   border-radius: 15px;
 `;
 
-const Stcardbottom = styled.div`
+const StCardBottom = styled.div`
   display: flex;
   justify-content: left;
   margin: 10px auto;
   display: inline-block;
 `;
 
-const Sttag = styled.div`
+const StTag = styled.div`
   border: 1px solid #e4dccf;
   color: #e4dccf;
   border-radius: 8px;
@@ -144,7 +144,7 @@ const Sttag = styled.div`
   padding: 4px;
   margin: 5px auto;
 `;
-const Sttitle = styled.div`
+const StTitle = styled.div`
   color: #e4dccf;
 `;
 

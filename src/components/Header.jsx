@@ -1,17 +1,17 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 import logo from '../img/logo.png';
+import { useDispatch } from 'react-redux';
+import { getCookie } from '../lib/cookie';
+import { checkOutMemberThunk } from '../redux/modules/memberSlice';
 
-const Header = ({ porpsChange }) => {
+const Header = (props) => {
   const navigate = useNavigate();
-  const [ButChange, setButChange] = useState(true);
+  const dispatch = useDispatch();
 
-  const username = localStorage.getItem('name');
-
-  useEffect(() => {
-    setButChange(porpsChange);
-  }, [setButChange]);
+  const auth = getCookie('auth');
+  const token = getCookie('token');
 
   return (
     <StHeader>
@@ -23,50 +23,48 @@ const Header = ({ porpsChange }) => {
       >
         <img src={logo} />
       </div>
-      <div>
-        <div>유저이름 님 당신의 하루를 기록해주세요.</div>
-      </div>
       <StBtnContainer>
-        <StBtn
-          onClick={() => {
-            navigate('/signin');
-          }}
-        >
-          로그인
-        </StBtn>
-        <StBtn
-          onClick={() => {
-            navigate('/signup');
-          }}
-        >
-          회원가입
-        </StBtn>
-      </StBtnContainer>
-      <div>
-        {ButChange ? (
-          <div
+        {(auth !== undefined && auth !== null) ||
+        (token !== undefined && token !== null) ? (
+          <StBtn
             onClick={() => {
-              setButChange(false);
-              console.log(ButChange);
-              //버튼을 누르면 false (이전으로) 바껴야됨 false을 넘겨줘야됌
-              navigate('/addpost', { state: { postChange: false } });
+              dispatch(checkOutMemberThunk());
+              alert('로그아웃 되었습니다.');
+              navigate('/');
+              window.location.reload();
             }}
           >
-            작성하기
-          </div>
+            로그아웃
+          </StBtn>
         ) : (
-          <div
+          <StBtn
             onClick={() => {
-              setButChange(true);
-              console.log(ButChange);
-              //버튼을 누르면 true (작성하기) 바껴야됨 true을 넘겨줘야됌
-              navigate('/', { state: { postChange: true } });
+              navigate('/signin');
             }}
           >
-            이전으로
-          </div>
+            로그인
+          </StBtn>
         )}
-      </div>
+        {(auth !== undefined && auth !== null) ||
+        (token !== undefined && token !== null) ? (
+          <StBtn
+            onClick={() => {
+              navigate('/my');
+              window.location.reload();
+            }}
+          >
+            마이페이지
+          </StBtn>
+        ) : (
+          <StBtn
+            onClick={() => {
+              navigate('/signup');
+            }}
+          >
+            회원가입
+          </StBtn>
+        )}
+      </StBtnContainer>
     </StHeader>
   );
 };
@@ -77,6 +75,7 @@ const StHeader = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
+  width: 1440px;
 `;
 
 const StBtnContainer = styled.div`

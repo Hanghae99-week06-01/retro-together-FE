@@ -32,13 +32,9 @@ const SignIn = () => {
         password: signIn.password,
       })
     );
-    setSignIn({ email: '', password: '' });
-  };
-
-  const onClickSignOut = () => {
-    dispatch(checkOutMemberThunk());
-    alert('로그아웃 되었습니다.');
+    alert('로그인 되었습니다.');
     navigate('/');
+    window.location.reload();
   };
 
   const onKeyPress = (e) => {
@@ -84,7 +80,13 @@ const SignIn = () => {
             </label>
           </div>
           <div>
-            <button onClick={onClickSignOut}>로그아웃</button>
+            <button
+              onClick={() => {
+                navigate('/');
+              }}
+            >
+              홈으로
+            </button>
           </div>
         </SignContianer>
       </SignWrap>

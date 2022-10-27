@@ -15,6 +15,22 @@ const SignUp = () => {
     checkpassword: '',
   });
 
+  // // 비밀번호 유효성 검사
+  // const checkPassword = (e) => {
+  //   //  8 ~ 10자 영문, 숫자 조합
+  //   var regExp = /^(?=.*\d)(?=.*[a-zA-Z])[0-9a-zA-Z]{8,10}$/;
+  //   // 형식에 맞는 경우 true 리턴
+  //   alert('비밀번호 유효성 검사 :: ', regExp.test(e.target.value));
+  // };
+
+  // // 이메일 유효성 검사
+  // const checkEmail = (e) => {
+  //   var regExp =
+  //     /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i;
+  //   // 형식에 맞는 경우 true 리턴
+  //   alert('이메일 유효성 검사 :: ', regExp.test(e.target.value));
+  // };
+
   const onChangeSignUp = (e) => {
     const { name, value } = e.target;
     setSignUp({ ...signUp, [name]: value });
@@ -29,7 +45,6 @@ const SignUp = () => {
       alert('모든 항목을 입력해주세요.');
     } else if (signUp.password !== signUp.checkpassword) {
       alert('비밀번호를 확인해주세요.');
-      return;
     }
     signUp.email = signUp.email.toLowerCase();
     dispatch(
@@ -40,7 +55,8 @@ const SignUp = () => {
         passwordConfirm: signUp.checkpassword,
       })
     );
-    setSignUp({ email: '', nickname: '', password: '', checkpassword: '' });
+    alert('회원가입 되었습니다.');
+    navigate('/signin');
   };
 
   const onKeyPress = (e) => {
@@ -69,7 +85,7 @@ const SignUp = () => {
             type="text"
             name="nickname"
             value={signUp.nickname}
-            maxLength={8}
+            maxLength={12}
             onChange={onChangeSignUp}
             onKeyPress={onKeyPress}
           />
