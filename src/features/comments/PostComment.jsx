@@ -11,7 +11,7 @@ import {
   getPostCommentThunk,
   globalEditModeToggle,
 } from '../../redux/modules/postCommentSlice';
-import CommentsLike from './CommentsLike';
+// import CommentsLike from './CommentsLike';
 
 const PostComment = ({ comment }) => {
   const { id } = useParams();
@@ -112,7 +112,7 @@ const PostComment = ({ comment }) => {
               <div>{comment.content}</div>
             </div>
           </StComments>
-          <CommentsLike />
+          {/* <CommentsLike /> */}
         </>
       )}
     </StComments>

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import Header from '../components/Header';
-import Layout from '../components/Layout';
-import PostComments from '../features/comments/PostComments';
+import Header from '../../components/Header';
+import Layout from '../../components/Layout';
+import PostComments from '../comments/PostComments';
 import styled from 'styled-components';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
@@ -10,7 +10,7 @@ import {
   __deletepostThunk,
   __updatePostThunk,
   __getOnepostThunk,
-} from '../redux/modules/postSlice';
+} from '../../redux/modules/postSlice';
 
 const Post = () => {
   const dispatch = useDispatch();
@@ -69,35 +69,26 @@ const Post = () => {
 
   return (
     <Layout>
-      <Header />
-      <Stoutline>
+      <StPost>
         {saveChange ? (
-          <div>
-            <div className="btn btn-dark">{postid.category}</div>
+          <>
+            <StCategory className="btn btn-dark">{postid.category}</StCategory>
 
-            <div>
-              <div>제목</div>
-              <Sttitlediv>{postid.title}</Sttitlediv>
-            </div>
-            <div>
-              <div>TIL/ WIL</div>
-              <Sttextdiv>{postid.twil_body}</Sttextdiv>
-            </div>
-            <div>
-              <div>회고</div>
-              <Sttextdiv>{postid.recall_body}</Sttextdiv>
-            </div>
+            <StCategoryBox>
+              <StCategory>{postid.tag}</StCategory>
+            </StCategoryBox>
 
-            <hr />
+            <StText>제목</StText>
+            <StTitle>{postid.title}</StTitle>
 
-            <StcastegoryBox>
-              <Stcategory>{postid.tag}</Stcategory>
-              <Stcategory>#Test</Stcategory>
-            </StcastegoryBox>
-          </div>
+            <StText>TIL/ WIL</StText>
+            <StContents>{postid.twil_body}</StContents>
+
+            <StText>회고</StText>
+            <StContents>{postid.recall_body}</StContents>
+          </>
         ) : (
           //수정화면
-
           <div>
             <div
               className="btn-group"
@@ -124,7 +115,6 @@ const Post = () => {
               >
                 TIL
               </label>
-
               <input
                 type="radio"
                 className="btn-check"
@@ -148,45 +138,45 @@ const Post = () => {
             </div>
             <div>
               <div>제목</div>
-              <Stinput
+              <StTitleInput
                 placeholder="title"
                 type="text"
                 defaultValue={Update.title || ''}
                 onChange={(e) => {
                   setUpdate(e.target.value);
                 }}
-              ></Stinput>
+              ></StTitleInput>
             </div>
             <div>
               <div>TIL/ WIL</div>
-              <Sttextarea
+              <StContentTextarea
                 placeholder="today"
                 type="text"
                 defaultValue={Update.twil_body}
                 onChange={(e) => {
                   setUpdate(e.target.value);
                 }}
-              ></Sttextarea>
+              ></StContentTextarea>
             </div>
             <div>
               <div>회고</div>
-              <Sttextarea
+              <StContentTextarea
                 placeholder="recall"
                 type="text"
                 defaultValue={Update.recall_body}
                 onChange={(e) => {
                   setUpdate(e.target.value);
                 }}
-              ></Sttextarea>
+              ></StContentTextarea>
             </div>
             이미지 파일로
-            <Stimagefile className="input-group mb-3">
+            <StImageFile className="input-group mb-3">
               <input
                 type="file"
                 className="form-control"
                 id="inputGroupFile02"
               />
-            </Stimagefile>
+            </StImageFile>
             이미지 URL
             <div
               className="input-group mb-3"
@@ -210,112 +200,185 @@ const Post = () => {
               }}
             />
             <button>추가</button>
-            <StcastegoryBox>
-              <Stcategory>{postid.tag}</Stcategory>
-              <Stcategory>#Test</Stcategory>
-            </StcastegoryBox>
+            <StCategoryBox>
+              <StCategory>{postid.tag}</StCategory>
+              <StCategory>#Test</StCategory>
+            </StCategoryBox>
           </div>
         )}
-
-        <Stbutdiv>
-          <button
-            onClick={() => {
-              const result = window.confirm('삭제하시겠습니까?');
-
-              if (result) {
-                return onDeleteHandler();
-              } else {
-                return;
-              }
-            }}
-          >
-            삭제하기
-          </button>
+        <StBtnBox>
           {saveChange ? (
-            <button
+            <StBtn
               onClick={() => {
                 setsaveChange(false);
               }}
             >
               수정하기
-            </button>
+            </StBtn>
           ) : (
-            <button onClick={onSaveButtonHandler}>저장하기</button>
+            <StBtn onClick={onSaveButtonHandler}>취소하기</StBtn>
           )}
-        </Stbutdiv>
-        <hr />
+          {saveChange ? (
+            <StBtn
+              onClick={() => {
+                const result = window.confirm('삭제하시겠습니까?');
+                if (result) {
+                  return onDeleteHandler();
+                } else {
+                  return;
+                }
+              }}
+            >
+              삭제하기
+            </StBtn>
+          ) : (
+            <StBtn onClick={onSaveButtonHandler}>저장하기</StBtn>
+          )}
+        </StBtnBox>
         <PostComments />
-      </Stoutline>
+      </StPost>
     </Layout>
   );
 };
 
 export default Post;
-const Stoutline = styled.div`
-  margin: 0 auto;
-  max-width: 1000px;
-  min-width: 800px;
+
+const StCategory = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-size: 26px;
+  font-weight: 500;
+
+  width: 100px;
+  height: 40px;
+
+  border-radius: 5px;
+  background-color: #576f72;
+
+  :hover {
+    background-color: #f7931d;
+  }
 `;
 
-const Sttitlediv = styled.div`
-  font-size: 15px;
-  padding: 10px;
-  width: 100%;
-  height: 50px;
-  border-radius: 12px;
-  border: 0px;
-  outline: none;
-  margin: 10px auto;
-  background-color: white;
-`;
-const Stinput = styled.input`
-  font-size: 15px;
-  padding: 10px;
-  width: 100%;
-  height: 50px;
-  border-radius: 12px;
-  border: 0px;
-  outline: none;
-  margin: 10px auto;
+const StPost = styled.div`
+  display: block;
+
+  width: 1000px;
+  max-width: 1440px;
+
+  margin: 50px 0;
 `;
 
-const Sttextdiv = styled.div`
-  width: 100%;
-  max-width: 1000px;
-  height: 700px;
-  margin-top: 10px;
-  padding: 10px;
-  background-color: white;
+const StText = styled.div`
+  font-size: 32px;
+  font-weight: 600;
+
+  padding-left: 10px;
+  margin-top: 20px;
 `;
 
-const Stbutdiv = styled.div`
+const StTitle = styled.div`
+  display: flex;
+  align-items: center;
+
+  width: 100%;
+  height: 60px;
+
+  padding-left: 20px;
+  margin: 20px auto;
+
+  font-size: 24px;
+  font-weight: 500;
+
+  border-radius: 5px;
+  background-color: #424242;
+`;
+
+const StContents = styled.div`
+  display: flex;
+
+  width: 100%;
+  height: 350px;
+
+  padding: 20px 0 0 20px;
+  margin: 20px auto;
+
+  font-size: 24px;
+  font-weight: 500;
+
+  border-radius: 5px;
+  background-color: #424242;
+`;
+
+const StTitleInput = styled.input`
+  display: flex;
+  align-items: center;
+
+  width: 100%;
+  height: 60px;
+
+  padding-left: 20px;
+  margin: 20px auto;
+
+  font-size: 24px;
+  font-weight: 500;
+
+  border-radius: 5px;
+  background-color: #424242;
+`;
+
+const StContentTextarea = styled.textarea`
+  display: flex;
+
+  width: 100%;
+  height: 350px;
+
+  padding: 20px 0 0 20px;
+  margin: 20px auto;
+
+  font-size: 24px;
+  font-weight: 500;
+
+  border-radius: 5px;
+  background-color: #424242;
+`;
+
+const StBtnBox = styled.div`
   display: flex;
   justify-content: right;
+  margin: 30px auto;
+  gap: 20px;
 `;
 
-const StcastegoryBox = styled.div`
+const StCategoryBox = styled.div`
   align-items: center;
   flex-direction: column;
   margin-top: 10px;
 `;
 
-const Stcategory = styled.div`
-  color: #e4dccf;
-  border: 1px solid #7d9d9c;
-  border-radius: 8px;
-  padding: 2px;
-  margin-left: 7px;
-  display: inline-block;
-`;
-
-const Sttextarea = styled.textarea`
-  width: 100%;
-  max-width: 1000px;
-  height: 700px;
-  margin-top: 10px;
-  padding: 10px;
-`;
-const Stimagefile = styled.div`
+const StImageFile = styled.div`
   width: 100%;
   max-width: 300px;
+`;
+
+const StBtn = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-size: 18px;
+  font-weight: 500;
+
+  width: 150px;
+  height: 40px;
+
+  border: 0px;
+  border-radius: 5px;
+  background-color: #f7931d;
+
+  :hover {
+    background-color: #576f72;
+  }
 `;

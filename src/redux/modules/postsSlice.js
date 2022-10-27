@@ -1,13 +1,12 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import axios from 'axios';
-// import instance from 'axios';
+import instance from '../../lib/instance';
 
 //GETthunk
 export const __getPostThunk = createAsyncThunk(
   'GET_POST',
   async (payload, thunkAPI) => {
     try {
-      const data = await axios.get(`http://localhost:3001/posts`);
+      const data = await instance.get(`/api/post/`);
       return thunkAPI.fulfillWithValue(data.data);
     } catch (err) {
       return thunkAPI.rejectWithValue(err);
@@ -20,8 +19,9 @@ export const __addPostThunk = createAsyncThunk(
   'ADD_POST',
   async (payload, thunkAPI) => {
     //콜백
+    console.log(payload);
     try {
-      const postList = await axios.post('http://localhost:3001/posts', payload);
+      const postList = await instance.post('/api/auth/post/', payload);
       return thunkAPI.fulfillWithValue(postList.data);
     } catch (error) {
       return thunkAPI.rejectWithValue(error);

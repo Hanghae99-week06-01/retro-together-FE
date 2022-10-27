@@ -23,9 +23,6 @@ const Header = ({ porpsChange }) => {
       >
         <img src={logo} />
       </div>
-      <div>
-        <div>유저이름 님 당신의 하루를 기록해주세요.</div>
-      </div>
       <StBtnContainer>
         <StBtn
           onClick={() => {
@@ -42,31 +39,6 @@ const Header = ({ porpsChange }) => {
           회원가입
         </StBtn>
       </StBtnContainer>
-      <div>
-        {ButChange ? (
-          <div
-            onClick={() => {
-              setButChange(false);
-              console.log(ButChange);
-              //버튼을 누르면 false (이전으로) 바껴야됨 false을 넘겨줘야됌
-              navigate('/addpost', { state: { postChange: false } });
-            }}
-          >
-            작성하기
-          </div>
-        ) : (
-          <div
-            onClick={() => {
-              setButChange(true);
-              console.log(ButChange);
-              //버튼을 누르면 true (작성하기) 바껴야됨 true을 넘겨줘야됌
-              navigate('/', { state: { postChange: true } });
-            }}
-          >
-            이전으로
-          </div>
-        )}
-      </div>
     </StHeader>
   );
 };

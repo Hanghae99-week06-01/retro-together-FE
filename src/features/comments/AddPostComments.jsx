@@ -7,7 +7,7 @@ import { addPostCommentsThunk } from '../../redux/modules/postCommentsSlice';
 const AddPostComments = () => {
   const dispatch = useDispatch();
   const { id } = useParams();
-  const { data } = useSelector((state) => state.comments.commentsByTodoId);
+  const { data } = useSelector((state) => state.comments.commentsByTodoId.data);
   const [comment, setComment] = useState({
     content: '',
   });
@@ -64,13 +64,21 @@ const StCommentsContainer = styled.div`
 `;
 
 const Textarea = styled.textarea`
-  width: 800px;
-  height: 70px;
-  margin: 0 0 24px;
+  width: 1000px;
+  max-width: 1440px;
+  height: 100px;
+
+  margin: 20px auto 10px auto;
   padding: 10px 10px 24px;
-  font-size: 16px;
+
+  font-size: 18px;
+  font-weight: 500;
+
+  border-radius: 5px;
+  background-color: #424242;
+
   ::placeholder {
-    font-size: large;
+    font-size: 18px;
     font-weight: 500;
     font-style: italic;
   }
@@ -81,13 +89,22 @@ const StButtonWrapper = styled.div`
   justify-content: flex-end;
 `;
 
-const StCommentsButton = styled.span`
-  background-color: #12b886;
-  color: white;
-  border-radius: 5px;
-  width: 100px;
-  height: 35px;
+const StCommentsButton = styled.button`
   display: flex;
   align-items: center;
   justify-content: center;
+
+  font-size: 18px;
+  font-weight: 500;
+
+  width: 150px;
+  height: 40px;
+
+  border: 0px;
+  border-radius: 5px;
+  background-color: #576f72;
+
+  :hover {
+    background-color: #f7931d;
+  }
 `;

@@ -1,6 +1,5 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import axios from 'axios';
-// import instance from 'axios';
+import instance from '../../lib/instance';
 
 //GET thunk 상세보기
 export const __getpostThunk = createAsyncThunk(
@@ -8,7 +7,7 @@ export const __getpostThunk = createAsyncThunk(
   async (payload, thunkAPI) => {
     //콜백
     try {
-      const data = await axios.get(`http://localhost:3001/posts/${payload}`);
+      const data = await instance.get(`/api/post/${payload}`);
       return thunkAPI.fulfillWithValue(data.data);
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
@@ -21,7 +20,7 @@ export const __deletepostThunk = createAsyncThunk(
   'DELETE_POST',
   async (payload, thunkAPI) => {
     try {
-      await axios.delete(`http://localhost:3001/posts/${payload}`);
+      await instance.delete(`/api/auth/post/${payload}`);
       return thunkAPI.fulfillWithValue(payload);
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
@@ -34,8 +33,8 @@ export const __updatePostThunk = createAsyncThunk(
   'UPDATE_POST',
   async (payload, thunkAPI) => {
     try {
-      const test = await axios.patch(
-        `http://localhost:3001/posts${payload.id}`,
+      const test = await instance.patch(
+        `/api/auth/post/${payload.id}`,
         payload
       );
       return thunkAPI.fulfillWithValue(test.data);

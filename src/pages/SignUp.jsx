@@ -69,7 +69,7 @@ const SignUp = () => {
             type="text"
             name="nickname"
             value={signUp.nickname}
-            maxLength={8}
+            maxLength={12}
             onChange={onChangeSignUp}
             onKeyPress={onKeyPress}
           />
