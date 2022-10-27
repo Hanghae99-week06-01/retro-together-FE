@@ -12,8 +12,6 @@ const AddPost = () => {
   const navigate = useNavigate();
   // const [Reque, Setreque] = useState(false);
 
-  const [category, Setcategory] = useState();
-
   const [post, setPost] = useState({
     category: '',
     title: '',
@@ -35,7 +33,7 @@ const AddPost = () => {
   //작성하기 => 이전으로 바뀌어야 됌 작성하기 누르면 false 값 가져옴
   // false을 header의 state에 넘겨줘야함
   // 페이지 이동하면서 state값이 초기화됌 useeffect
-  console.log('>>>' + change);
+  // console.log('>>>' + change);
 
   return (
     <Layout>
@@ -57,7 +55,7 @@ const AddPost = () => {
               name="btnradio"
               id="btnradio1"
               autoComplete="off"
-              value={category}
+              value={'TIL'}
               onChange={(e) => {
                 const { value } = e.target;
                 setPost({
@@ -66,13 +64,7 @@ const AddPost = () => {
                 });
               }}
             />
-            <label
-              className="btn btn-outline-dark"
-              htmlFor="btnradio1"
-              onClick={() => {
-                Setcategory('TIL');
-              }}
-            >
+            <label className="btn btn-outline-dark" htmlFor="btnradio1">
               TIL
             </label>
 
@@ -82,7 +74,7 @@ const AddPost = () => {
               name="btnradio"
               id="btnradio2"
               autoComplete="off"
-              value={category}
+              value={'WIL'}
               onChange={(e) => {
                 const { value } = e.target;
                 setPost({
@@ -91,13 +83,7 @@ const AddPost = () => {
                 });
               }}
             />
-            <label
-              className="btn btn-outline-dark"
-              htmlFor="btnradio2"
-              onClick={() => {
-                Setcategory('WIL');
-              }}
-            >
+            <label className="btn btn-outline-dark" htmlFor="btnradio2">
               WIL
             </label>
           </div>
@@ -148,7 +134,19 @@ const AddPost = () => {
           </div>
           이미지 파일로
           <Stimagefile className="input-group mb-3">
-            <input type="file" className="form-control" id="inputGroupFile02" />
+            <input
+              type="file"
+              className="form-control"
+              id="inputGroupFile02"
+              value={post.image}
+              onChange={(e) => {
+                const { value } = e.target;
+                setPost({
+                  ...post,
+                  image: value,
+                });
+              }}
+            />
           </Stimagefile>
           이미지 URL
           <div

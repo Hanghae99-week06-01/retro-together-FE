@@ -18,7 +18,7 @@ const Post = () => {
   const { id } = useParams();
   const posts = useSelector((state) => state.posts.posts);
   const post = useSelector((state) => state.post.post);
-  console.log(post);
+  console.log(id);
   // const post = useSelector((state) => state.posts.post);
   const postid = posts.filter((post) => post.id === Number(id))[0];
 

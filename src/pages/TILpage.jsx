@@ -7,7 +7,7 @@ import styled from 'styled-components';
 import { useSelector, useDispatch } from 'react-redux';
 import { __getPostThunk } from '../redux/modules/postsSlice';
 
-const Mypage = () => {
+const TILpage = () => {
   const posts = useSelector((state) => state.posts.posts);
   const tests = useSelector((state) => state);
   console.log(posts);
@@ -23,30 +23,11 @@ const Mypage = () => {
   const TILfilter = posts.filter((x) => x.category == 'TIL');
   console.log(TILfilter);
 
-  const WILfilter = posts.filter((x) => x.category == 'WIL');
-  console.log(WILfilter);
-
-  function filter() {
-    if ((save.category = 'TIL')) {
-      {
-        TILfilter.map((post) => {
-          return <Card key={post.id} post={post} />;
-        });
-      }
-    } else if ((save.category = 'WIL')) {
-      {
-        WILfilter.map((post) => {
-          return <Card key={post.id} post={post} />;
-        });
-      }
-    }
-  }
-
   return (
     <Layout>
       <Header />
       <Stoutline>
-        <Sth2>나의 게시물 </Sth2>
+        <Sth2>TIL</Sth2>
 
         <Stbutdiv
           className="btn-group"
@@ -59,8 +40,7 @@ const Mypage = () => {
             name="btnradio"
             id="btnradio1"
             autocomplete="off"
-            checked
-            readOnly
+            onChange={navigate('/mypage')}
           />
           <label className="btn btn-outline-dark" for="btnradio1">
             ALL
@@ -72,9 +52,9 @@ const Mypage = () => {
             name="btnradio"
             id="btnradio2"
             autoComplete="off"
+            checked
             value={'TIL'}
             onChange={(e) => {
-              navigate('/mypage/TIL');
               const { value } = e.target;
               setSave({
                 ...save,
@@ -82,11 +62,7 @@ const Mypage = () => {
               });
             }}
           />
-          <label
-            className="btn btn-outline-dark"
-            for="btnradio2"
-            // onClick={navigate('/mypage/TIL')}
-          >
+          <label className="btn btn-outline-dark" for="btnradio2">
             TIL
           </label>
 
@@ -106,65 +82,15 @@ const Mypage = () => {
               });
             }}
           />
-          <label
-            className="btn btn-outline-dark"
-            for="btnradio3"
-            // onClick={navigate('/mypage/WIL')}
-          >
+          <label className="btn btn-outline-dark" for="btnradio3">
             WIL
           </label>
-
-          {/* <input
-            type="radio"
-            className="btn-check"
-            name="btnradio"
-            id="btnradio1"
-            autoComplete="off"
-            value={'TIL'}
-            onChange={(e) => {
-              const { value } = e.target;
-              setSave({
-                ...save,
-                category: value,
-              });
-            }}
-          />
-          <label
-            className="btn btn-outline-dark"
-            htmlFor="btnradio1"
-            onClick={navigate('/mypage/TIL')}
-          >
-            TIL
-          </label>
-
-          <input
-            type="radio"
-            className="btn-check"
-            name="btnradio"
-            id="btnradio2"
-            autoComplete="off"
-            value={'WIL'}
-            onChange={(e) => {
-              const { value } = e.target;
-              setSave({
-                ...save,
-                category: value,
-              });
-            }}
-          />
-          <label
-            className="btn btn-outline-dark"
-            htmlFor="btnradio2"
-            onClick={navigate('/mypage/WIL')}
-          >
-            WIL
-          </label> */}
         </Stbutdiv>
       </Stoutline>
       <hr />
       <Stcardoutline>
         <div className="row row-cols-1 row-cols-md-5 g-4">
-          {posts.map((post) => (
+          {TILfilter.map((post) => (
             <Card key={post.id} post={post} />
           ))}
 
@@ -201,7 +127,7 @@ const Mypage = () => {
     </Layout>
   );
 };
-export default Mypage;
+export default TILpage;
 
 const Stcardoutline = styled.div`
   margin: 20px auto;
