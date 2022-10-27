@@ -179,13 +179,14 @@ const AddPost = () => {
           </StcastegoryBox> */}
         <Stbutdiv>
           <button
+            type="button"
             onClick={() => {
               navigate('/');
             }}
           >
             취소
           </button>
-          <button>저장</button>
+          <button type="submit">저장</button>
         </Stbutdiv>
         <hr />
       </StAddForm>
