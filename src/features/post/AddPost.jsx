@@ -5,6 +5,7 @@ import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
 import Layout from '../../components/Layout';
 import { __addPostThunk } from '../../redux/modules/postsSlice';
+import Header from '../../components/Header';
 
 const AddPost = () => {
   const dispatch = useDispatch();
@@ -31,60 +32,61 @@ const AddPost = () => {
           onSubmitHandler(post);
         }}
       >
-        {/* <div
-            className="btn-group"
-            role="group"
-            aria-label="Basic radio toggle button group"
+        <Header />
+        <div
+          className="btn-group"
+          role="group"
+          aria-label="Basic radio toggle button group"
+        >
+          <input
+            type="radio"
+            className="btn-check"
+            name="btnradio"
+            id="btnradio1"
+            autoComplete="off"
+            value={category}
+            onChange={(e) => {
+              const { value } = e.target;
+              setPost({
+                ...post,
+                category: value,
+              });
+            }}
+          />
+          <label
+            className="btn btn-outline-dark"
+            htmlFor="btnradio1"
+            onClick={() => {
+              Setcategory('TIL');
+            }}
           >
-            <input
-              type="radio"
-              className="btn-check"
-              name="btnradio"
-              id="btnradio1"
-              autoComplete="off"
-              value={category}
-              onChange={(e) => {
-                const { value } = e.target;
-                setPost({
-                  ...post,
-                  category: value,
-                });
-              }}
-            />
-            <label
-              className="btn btn-outline-dark"
-              htmlFor="btnradio1"
-              onClick={() => {
-                Setcategory('TIL');
-              }}
-            >
-              TIL
-            </label>
-            <input
-              type="radio"
-              className="btn-check"
-              name="btnradio"
-              id="btnradio2"
-              autoComplete="off"
-              value={category}
-              onChange={(e) => {
-                const { value } = e.target;
-                setPost({
-                  ...post,
-                  category: value,
-                });
-              }}
-            />
-            <label
-              className="btn btn-outline-dark"
-              htmlFor="btnradio2"
-              onClick={() => {
-                Setcategory('WIL');
-              }}
-            >
-              WIL
-            </label>
-          </div> */}
+            TIL
+          </label>
+          <input
+            type="radio"
+            className="btn-check"
+            name="btnradio"
+            id="btnradio2"
+            autoComplete="off"
+            value={category}
+            onChange={(e) => {
+              const { value } = e.target;
+              setPost({
+                ...post,
+                category: value,
+              });
+            }}
+          />
+          <label
+            className="btn btn-outline-dark"
+            htmlFor="btnradio2"
+            onClick={() => {
+              Setcategory('WIL');
+            }}
+          >
+            WIL
+          </label>
+        </div>
         <div>
           <div>제목</div>
           <Stinput
@@ -115,21 +117,21 @@ const AddPost = () => {
             }}
           ></Sttextarea>
         </div>
-        {/* <div>
-            <div>회고</div>
-            <Sttextarea
-              placeholder="recall"
-              type="text"
-              value={post.recall_body}
-              onChange={(e) => {
-                const { value } = e.target;
-                setPost({
-                  ...post,
-                  recall_body: value,
-                });
-              }}
-            ></Sttextarea>
-          </div> */}
+        <div>
+          <div>회고</div>
+          <Sttextarea
+            placeholder="recall"
+            type="text"
+            value={post.recall_body}
+            onChange={(e) => {
+              const { value } = e.target;
+              setPost({
+                ...post,
+                recall_body: value,
+              });
+            }}
+          ></Sttextarea>
+        </div>
         이미지 파일로
         <Stimagefile className="input-group mb-3">
           <input
@@ -161,22 +163,22 @@ const AddPost = () => {
           <input type="text" className="form-control" id="inputGroupFile02" />
         </div>
         <hr />
-        {/* <input
-            placeholder="#테그입력"
-            value={post.tag}
-            onChange={(e) => {
-              const { value } = e.target;
-              setPost({
-                ...post,
-                tag: value,
-              });
-            }}
-          />
-          <button>추가</button>
-          <StcastegoryBox>
-            <Stcategory>#React</Stcategory>
-            <Stcategory>#Test</Stcategory>
-          </StcastegoryBox> */}
+        <input
+          placeholder="#테그입력"
+          value={post.tag}
+          onChange={(e) => {
+            const { value } = e.target;
+            setPost({
+              ...post,
+              tag: value,
+            });
+          }}
+        />
+        <button>추가</button>
+        <StcastegoryBox>
+          <Stcategory>#React</Stcategory>
+          <Stcategory>#Test</Stcategory>
+        </StcastegoryBox>
         <Stbutdiv>
           <button
             type="button"
@@ -198,6 +200,7 @@ export default AddPost;
 
 const StAddForm = styled.form`
   display: block;
+  max-width: 1440px;
 `;
 
 const Stinput = styled.input`

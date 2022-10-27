@@ -72,18 +72,14 @@ const Post = () => {
       <StPost>
         {saveChange ? (
           <>
-            <StCategory className="btn btn-dark">{postid.category}</StCategory>
-
+            <StCategory>{postid.category}</StCategory>
             <StCategoryBox>
               <StCategory>{postid.tag}</StCategory>
             </StCategoryBox>
-
             <StText>제목</StText>
             <StTitle>{postid.title}</StTitle>
-
             <StText>TIL/ WIL</StText>
             <StContents>{postid.twil_body}</StContents>
-
             <StText>회고</StText>
             <StContents>{postid.recall_body}</StContents>
           </>

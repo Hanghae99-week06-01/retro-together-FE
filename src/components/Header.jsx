@@ -1,17 +1,17 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 import logo from '../img/logo.png';
+import { useDispatch } from 'react-redux';
+import { getCookie } from '../lib/cookie';
+import { checkOutMemberThunk } from '../redux/modules/memberSlice';
 
-const Header = ({ porpsChange }) => {
+const Header = (props) => {
   const navigate = useNavigate();
-  const [ButChange, setButChange] = useState(true);
+  const dispatch = useDispatch();
 
-  const username = localStorage.getItem('name');
-
-  useEffect(() => {
-    setButChange(porpsChange);
-  }, [setButChange]);
+  const auth = getCookie('auth');
+  const token = getCookie('token');
 
   return (
     <StHeader>
@@ -24,20 +24,46 @@ const Header = ({ porpsChange }) => {
         <img src={logo} />
       </div>
       <StBtnContainer>
-        <StBtn
-          onClick={() => {
-            navigate('/signin');
-          }}
-        >
-          로그인
-        </StBtn>
-        <StBtn
-          onClick={() => {
-            navigate('/signup');
-          }}
-        >
-          회원가입
-        </StBtn>
+        {(auth !== undefined && auth !== null) ||
+        (token !== undefined && token !== null) ? (
+          <StBtn
+            onClick={() => {
+              dispatch(checkOutMemberThunk());
+              alert('로그아웃 되었습니다.');
+              navigate('/');
+              window.location.reload();
+            }}
+          >
+            로그아웃
+          </StBtn>
+        ) : (
+          <StBtn
+            onClick={() => {
+              navigate('/signin');
+            }}
+          >
+            로그인
+          </StBtn>
+        )}
+        {(auth !== undefined && auth !== null) ||
+        (token !== undefined && token !== null) ? (
+          <StBtn
+            onClick={() => {
+              navigate('/my');
+              window.location.reload();
+            }}
+          >
+            마이페이지
+          </StBtn>
+        ) : (
+          <StBtn
+            onClick={() => {
+              navigate('/signup');
+            }}
+          >
+            회원가입
+          </StBtn>
+        )}
       </StBtnContainer>
     </StHeader>
   );
@@ -49,6 +75,7 @@ const StHeader = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
+  width: 1440px;
 `;
 
 const StBtnContainer = styled.div`

@@ -44,6 +44,7 @@ export const checkOutMemberThunk = createAsyncThunk(
   async (payload, thunkAPI) => {
     try {
       await instance.post('/api/auth/member/logout');
+      sessionStorage.clear('emailId', 'nickname', 'id');
       removeCookie('auth');
       removeCookie('token');
       return thunkAPI.fulfillWithValue(true);
