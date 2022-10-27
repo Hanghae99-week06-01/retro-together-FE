@@ -6,10 +6,12 @@ import Post from '../pages/Post';
 import Mypage from '../pages/Mypage';
 import SignIn from '../pages/SignIn';
 import SignUp from '../pages/SignUp';
+import GlobalStyle from '../styles/GlobalStyle';
 
 const Router = () => {
   return (
     <BrowserRouter>
+      <GlobalStyle />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="addpost" element={<AddPost />} />

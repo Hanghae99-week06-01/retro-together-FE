@@ -8,12 +8,10 @@ const Layout = ({ children }) => {
 export default Layout;
 
 const StLayout = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
-  padding: 0;
+  max-width: 1440px;
   margin: auto;
-  display: block;
-
-  width: 100%;
-  height: 100%;
-  max-width: 1800px;
 `;

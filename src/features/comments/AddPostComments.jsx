@@ -21,7 +21,7 @@ const AddPostComments = () => {
     if (comment.content.trim() === '') {
       return alert('댓글을 입력해주세요.');
     }
-    dispatch(addPostCommentsThunk({ todoId: +id, ...comment }));
+    dispatch(addPostCommentsThunk({ postId: +id, ...comment }));
     setComment({
       content: '',
     });

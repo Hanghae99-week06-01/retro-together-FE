@@ -36,7 +36,7 @@ const SignIn = () => {
   };
 
   const onClickSignOut = () => {
-    dispatch(checkOutMemberThunk(setCookie()));
+    dispatch(checkOutMemberThunk());
     alert('로그아웃 되었습니다.');
     navigate('/');
   };

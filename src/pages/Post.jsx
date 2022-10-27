@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Header from '../components/Header';
 import Layout from '../components/Layout';
-import Comment from './Comment';
+import PostComments from '../features/comments/PostComments';
 import styled from 'styled-components';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
@@ -18,7 +18,6 @@ const Post = () => {
   const { id } = useParams();
   const posts = useSelector((state) => state.posts.posts);
   const post = useSelector((state) => state.post.post);
-  console.log(post);
   // const post = useSelector((state) => state.posts.post);
   const postid = posts.filter((post) => post.id === Number(id))[0];
 
@@ -245,7 +244,7 @@ const Post = () => {
           )}
         </Stbutdiv>
         <hr />
-        <Comment />
+        <PostComments />
       </Stoutline>
     </Layout>
   );

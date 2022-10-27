@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
-// import Slider from 'react-slick';
-// import 'slick-carousel/slick/slick.css';
-// import 'slick-carousel/slick/slick-theme.css';
+import Slider from 'react-slick';
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
 import './Banner.css';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
@@ -18,10 +18,16 @@ const Banner = () => {
   }, []);
 
   const settings = {
-    infinite: false,
-    speed: 500,
-    slidesToShow: 5,
+    dots: true,
     infinite: true,
+    speed: 500,
+    autoplay: true,
+    autoplaySpeed: 2000,
+    slidesToShow: 6,
+    slidesToScroll: 1,
+    centerMode: true,
+    centerPadding: 0,
+
     responsive: [
       {
         breakpoint: 1024,
@@ -50,27 +56,25 @@ const Banner = () => {
 
   return (
     <StBanner>
-      <Stoutline>
-        <Slider {...settings}>
-          {posts.map((post) => (
-            <Stcard
-              key={post}
-              onClick={() => {
-                navigate(`/post/${post.id}`);
-              }}
-            >
-              <Stcardtop>
-                <Stcardimg src={post.url} alt={post.title} />
-              </Stcardtop>
-              <Stcardbottom>
-                <Sttitle>{post.title}</Sttitle>
-                <Sttag>{post.tag}</Sttag>
-                <StLike>❤23</StLike>
-              </Stcardbottom>
-            </Stcard>
-          ))}
-        </Slider>
-      </Stoutline>
+      <Slider {...settings}>
+        {posts.map((post) => (
+          <StBannerList
+            key={post}
+            onClick={() => {
+              navigate(`/post/${post.id}`);
+            }}
+          >
+            <div>
+              <img src={post.url} alt={post.title} />
+            </div>
+            <div>
+              <div>{post.title}</div>
+              <div>{post.tag}</div>
+              <div>❤23</div>
+            </div>
+          </StBannerList>
+        ))}
+      </Slider>
     </StBanner>
   );
 };
@@ -78,12 +82,22 @@ const Banner = () => {
 export default Banner;
 
 const StBanner = styled.div`
-  width: 90%;
-  margin: 0 auto;
-  margin-top: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 `;
 
-const Stoutline = styled.div``;
+const StBannerList = styled.div`
+  width: 260px;
+  height: 360px;
+  overflow: hidden;
+  background-color: #424242;
+  gap: 10px;
+  :hover {
+    cursor: pointer;
+    background-color: #f7931d;
+  }
+`;
 
 const Stcard = styled.div`
   padding: 12px;

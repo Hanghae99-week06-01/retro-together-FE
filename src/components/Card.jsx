@@ -1,53 +1,70 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
 
 const Card = ({ post }) => {
   const navigate = useNavigate();
-  const dispatch = useDispatch();
 
-  //;
-  // console.log(posts);
   return (
-    <Stbox className="col" key={post.id}>
-      <Stcard
-        className="card"
-        onClick={() => {
-          navigate(`/post/${post.id}`);
-        }}
-      >
-        <Stcardimg src={post.url} className="card-img-top" alt={post.title} />
-        <div className="card-body">
-          <h5 className="card-title">{post.title}</h5>
-          <div className="card-text">
-            <div>{post.tag}</div>
-            <div>❤23</div>
-          </div>
-        </div>
-      </Stcard>
-    </Stbox>
+    <StCard key={post.id}>
+      <StCardContainer>
+        <StCardBox
+          className="card"
+          onClick={() => {
+            navigate(`/post/${post.id}`);
+          }}
+        >
+          <StCardWrap className="card-body">
+            <StCardImg
+              src={post.url}
+              className="card-img-top"
+              alt={post.title}
+            />
+            <StCardText>
+              <h4>{post.title}</h4>
+              <div>{post.tag}</div>
+              <div>❤</div>
+            </StCardText>
+          </StCardWrap>
+        </StCardBox>
+      </StCardContainer>
+    </StCard>
   );
 };
 
 export default Card;
 
-const Stcard = styled.div`
-  background-color: #2c3639;
-  color: #e4dccf;
-  cursor: pointer;
+const StCard = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
 `;
 
-const Stcardimg = styled.img`
-  margin: 8px auto;
-  border-radius: 12px;
+const StCardContainer = styled.div`
+  max-width: 100%;
+`;
+
+const StCardBox = styled.div`
+  width: 260px;
+  height: 360px;
   overflow: hidden;
-  height: 23vh;
-  width: 23vh;
+  background-color: #424242;
+  :hover {
+    cursor: pointer;
+    background-color: #f7931d;
+  }
+`;
+
+const StCardWrap = styled.div`
+  margin: 0;
+  padding: 0;
+`;
+
+const StCardImg = styled.img`
+  max-height: 20vh;
   object-fit: cover;
 `;
 
-const Stbox = styled.div`
-  width: 100%;
-  max-width: 30vh;
+const StCardText = styled.div`
+  padding: 20px;
 `;

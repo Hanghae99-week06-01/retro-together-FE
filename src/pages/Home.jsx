@@ -18,33 +18,29 @@ const Home = () => {
 
   return (
     <Layout>
-      <Header />
-      <Banner />
       <div>
-        <Stbox>
-          <Stboxtop>
-            <Stsearch placeholder="#테그검색" />
-            <Stbut> 검색</Stbut>
-          </Stboxtop>
-          <Stboxbottom>
-            <StCategory>#React</StCategory>
-            <StCategory>#Spring</StCategory>
-            <StCategory>#Javascript</StCategory>
-            <StCategory>#Java</StCategory>
-            <StCategory>#Python</StCategory>
-            <StCategory>#Vue</StCategory>
-            <StCategory>#Typescript</StCategory>
-            <StCategory>#Node</StCategory>
-          </Stboxbottom>
-        </Stbox>
-      </div>
-      <Stcardoutline>
-        <div className="row row-cols-1 row-cols-md-5 g-4">
+        <Header />
+        {/* <Banner /> */}
+        <div>
+          <Stbox>
+            {/* <Stboxbottom>
+              <StCategory>#React</StCategory>
+              <StCategory>#Spring</StCategory>
+              <StCategory>#Javascript</StCategory>
+              <StCategory>#Java</StCategory>
+              <StCategory>#Python</StCategory>
+              <StCategory>#Vue</StCategory>
+              <StCategory>#Typescript</StCategory>
+              <StCategory>#Node</StCategory>
+            </Stboxbottom> */}
+          </Stbox>
+        </div>
+        <StCardList>
           {posts.map((post) => (
             <Card key={post.id} post={post} />
           ))}
-        </div>
-      </Stcardoutline>
+        </StCardList>
+      </div>
     </Layout>
   );
 };
@@ -100,13 +96,11 @@ const Stbox = styled.div`
   padding: 10px;
 `;
 
-const Stcardoutline = styled.div`
-  margin: auto;
-  justify-content: center;
-  align-items: center;
+const StCardList = styled.div`
   display: flex;
-  width: 100%;
-  max-width: 150vh;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
 `;
 
 const StCategory = styled.div`

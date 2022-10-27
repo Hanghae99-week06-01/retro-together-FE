@@ -9,22 +9,26 @@ const PostComments = () => {
   const navigate = useNavigate();
   const { id } = useParams();
   const dispatch = useDispatch();
-  const { data } = useSelector((state) => state.comments.commentsByTodoId);
-  console.log(data);
+  const { data } = useSelector((state) => state.comments.commentsByTodoId.data);
+  const loading = useSelector((state) => state.comments.commentsByTodoId.data);
+  const { isLoading, error } = useSelector(
+    (state) => state.comments.commentsByTodoId
+  );
 
   useEffect(() => {
     dispatch(getPostCommentsThunk(id));
   }, [dispatch, id]);
 
+  if (isLoading || loading.length <= 0) return <div>로딩입니다.</div>;
+
+  if (error) return <div>에러입니다.</div>;
+
   return (
     <div>
-      <button onClick={() => navigate('/')}>홈</button>
-      <div>
-        <AddPostComments />
-        {data.map((comment) => (
-          <PostComment key={comment.id} comment={comment} />
-        ))}
-      </div>
+      <AddPostComments />
+      {data.map((comment) => (
+        <PostComment key={comment.id} comment={comment} />
+      ))}
     </div>
   );
 };

@@ -1,33 +1,33 @@
-import axios from "axios";
-import { createSlice,createAsyncThunk } from "@reduxjs/toolkit";
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import axios from 'axios';
+// import instance from 'axios';
 
-//GET thunk
+//GETthunk
 export const __getPostThunk = createAsyncThunk(
-  "GET_POST",
-  async(payload, thunkAPI) => {
-    try{
-      const data = await axios.get(`http://localhost:3001/posts`)
+  'GET_POST',
+  async (payload, thunkAPI) => {
+    try {
+      const data = await axios.get(`http://localhost:3001/posts`);
       return thunkAPI.fulfillWithValue(data.data);
-    }catch (err) {
+    } catch (err) {
       return thunkAPI.rejectWithValue(err);
     }
   }
 );
 
-//Add thunk
+//Addthunk
 export const __addPostThunk = createAsyncThunk(
-  "ADD_POST", 
-  async (payload, thunkAPI) => { //콜백
-      try{
-          const postList = await axios.post("http://localhost:3001/posts", payload);
-          return thunkAPI.fulfillWithValue(postList.data);
-      }catch (error) {
-          return thunkAPI.rejectWithValue(error);
-      }}
-  );
-
-
-
+  'ADD_POST',
+  async (payload, thunkAPI) => {
+    //콜백
+    try {
+      const postList = await axios.post('http://localhost:3001/posts', payload);
+      return thunkAPI.fulfillWithValue(postList.data);
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error);
+    }
+  }
+);
 
 const initialState = {
   posts: [],
@@ -37,10 +37,10 @@ const initialState = {
 };
 
 export const postsSlice = createSlice({
-  name:"posts",
+  name: 'posts',
   initialState,
-  reducers:{},
-  extraReducers:{
+  reducers: {},
+  extraReducers: {
     //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
     [__getPostThunk.fulfilled]: (state, action) => {
       state.isLoading = false;
@@ -55,19 +55,17 @@ export const postsSlice = createSlice({
     },
     //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
     [__addPostThunk.pending]: (state) => {
-      state.isLoading = true; 
+      state.isLoading = true;
     },
     [__addPostThunk.fulfilled]: (state, action) => {
-      state.isLoading = false; 
-      state.posts = [...state.posts, action.payload]; 
+      state.isLoading = false;
+      state.posts = [...state.posts, action.payload];
     },
     [__addPostThunk.rejected]: (state, action) => {
-      state.isLoading = false; 
+      state.isLoading = false;
     },
-  
-
-  }
-})
+  },
+});
 
 export const {} = postsSlice.actions;
 export default postsSlice.reducer;

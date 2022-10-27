@@ -36,7 +36,7 @@ const PostComment = ({ comment }) => {
       editPostCommentsThunk({
         id: comment.id,
         content: updatedComment,
-        todoId: id,
+        postId: id,
       })
     );
     setIsEdit(false);

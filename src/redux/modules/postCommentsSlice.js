@@ -1,13 +1,11 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import axios from 'axios';
+import instance from '../../lib/instance';
 
 export const getPostCommentsThunk = createAsyncThunk(
   'GET_POST_COMMENTS', // 댓글 조회
   async (payload, thunkAPI) => {
     try {
-      const { data } = await axios.get(
-        `http://localhost:3001/comments?todoId=${payload}`
-      );
+      const { data } = await instance.get(`/api/comment/${payload}`);
       return thunkAPI.fulfillWithValue(data);
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
@@ -19,10 +17,7 @@ export const addPostCommentsThunk = createAsyncThunk(
   'ADD_POST_COMMENTS', // 댓글 추가
   async (payload, thunkAPI) => {
     try {
-      const { data } = await axios.post(
-        'http://localhost:3001/comments',
-        payload
-      );
+      const { data } = await instance.post('/api/auth/comment', payload);
       return thunkAPI.fulfillWithValue(data);
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
@@ -33,8 +28,9 @@ export const addPostCommentsThunk = createAsyncThunk(
 export const deletePostCommentsThunk = createAsyncThunk(
   'DELETE_POST_COMMENTS', // 댓글 삭제
   async (payload, thunkAPI) => {
+    console.log(payload);
     try {
-      await axios.delete(`http://localhost:3001/comments/${payload}`);
+      await instance.delete(`/api/auth/comment/${payload}`);
       return thunkAPI.fulfillWithValue(payload);
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
@@ -46,7 +42,7 @@ export const editPostCommentsThunk = createAsyncThunk(
   'UPDATE_COMMENT', // 댓글 수정
   async (payload, thunkAPI) => {
     try {
-      axios.patch(`http://localhost:3001/comments/${payload.id}`, payload);
+      instance.put(`/api/auth/comment/${payload.id}`, payload);
       return thunkAPI.fulfillWithValue(payload);
     } catch (error) {
       return thunkAPI.rejectWithValue(error);

@@ -1,31 +1,6 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import axios from 'axios';
-import { Cookies } from 'react-cookie';
-
-const baseURL = process.env.REACT_APP_BASEURL;
-
-const cookies = new Cookies();
-
-export const setCookie = (name, value, option) => {
-  return cookies.set(name, value, { ...option });
-};
-
-export const getCookie = (name) => {
-  return cookies.get(name);
-};
-
-export const removeCookie = (name) => {
-  return cookies.remove(name);
-};
-
-export const instance = axios.create({
-  baseURL: baseURL,
-  headers: {
-    'Content-Type': 'application/json',
-    'Access-Control-Allow-Origin': '*',
-    authorization: `Bearer ${getCookie('token')}`,
-  },
-});
+import instance from '../../lib/instance';
+import { setCookie, removeCookie } from '../../lib/cookie';
 
 export const addMemberThunk = createAsyncThunk(
   'ADD_MEMBER',
@@ -49,14 +24,12 @@ export const checkInMemberThunk = createAsyncThunk(
           password,
         })
         .then((res) => {
-          setCookie(
-            'authorization',
-            res.request.getResponseHeader('authorization')
-          );
-          setCookie(
-            'refresh-token',
-            res.request.getResponseHeader('refresh-token')
-          );
+          console.log(res);
+          setCookie('auth', res.request.getResponseHeader('authorization'));
+          setCookie('token', res.request.getResponseHeader('refresh-token'));
+          sessionStorage.setItem('id', res.data.data.id);
+          sessionStorage.setItem('emailId', res.data.data.emailId);
+          sessionStorage.setItem('nickname', res.data.data.nickname);
         });
       console.log(data);
       return thunkAPI.fulfillWithValue(data);

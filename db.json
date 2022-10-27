@@ -1,27 +1,4 @@
 {
-  "member": [
-    {
-      "email": "",
-      "nickname": "",
-      "password": "",
-      "id": ""
-    },
-    {
-      "email": "kurney@naver.com",
-      "nickname": "kurney",
-      "password": "twilight1",
-      "id": "fNfUOLX"
-    },
-    {
-      "email": "kurney@naver.com",
-      "nickname": "kurney",
-      "password": "twilight1",
-      "id": "tp9LV-q"
-    },
-    {
-      "id": "W4dj5hl"
-    }
-  ],
   "posts": [
     {
       "category": "TIL",
@@ -83,15 +60,5 @@
       "tag": "",
       "id": 10
     }
-  ],
-  "comments": [
-    {
-      "id": 1,
-      "body": "some comment",
-      "postId": 1
-    }
-  ],
-  "profile": {
-    "name": "typicode"
-  }
+  ]
 }
